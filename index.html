@@ -15,7 +15,7 @@
       --bg1:#0b0f17;
       --card: rgba(255,255,255,.06);
       --card2: rgba(255,255,255,.09);
-      --stroke: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.12);
       --text:#e9eefc;
       --muted: rgba(233,238,252,.70);
       --muted2: rgba(233,238,252,.55);
@@ -26,6 +26,19 @@
       --radius: 22px;
       --radius2: 28px;
       --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display","SF Pro Text", "Helvetica Neue", Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    /* Light mode toggle (optional) */
+    [data-theme="light"]{
+      --bg0:#f4f6fb;
+      --bg1:#ffffff;
+      --card: rgba(0,0,0,.05);
+      --card2: rgba(0,0,0,.07);
+      --stroke: rgba(0,0,0,.10);
+      --text:#0d1320;
+      --muted: rgba(13,19,32,.70);
+      --muted2: rgba(13,19,32,.55);
+      --shadow: 0 18px 60px rgba(0,0,0,.12);
     }
 
     *{box-sizing:border-box}
@@ -42,7 +55,6 @@
       overflow-x:hidden;
     }
 
-    /* iPhone safe areas */
     .app{
       min-height:100%;
       padding:
@@ -80,13 +92,21 @@
       border: 1px solid rgba(255,255,255,.16);
       position:relative;
     }
+    [data-theme="light"] .logo{
+      border-color: rgba(0,0,0,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
     .logo::after{
       content:"";
       position:absolute; inset:10px;
       border-radius:10px;
-      background: rgba(0,0,0,.25);
+      background: rgba(0,0,0,.18);
       border: 1px solid rgba(255,255,255,.14);
       backdrop-filter: blur(10px);
+    }
+    [data-theme="light"] .logo::after{
+      background: rgba(255,255,255,.50);
+      border-color: rgba(0,0,0,.08);
     }
 
     .brandtext{
@@ -119,7 +139,7 @@
     }
     .iconbtn{
       width:40px;height:40px;border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid var(--stroke);
       background: rgba(255,255,255,.05);
       box-shadow: 0 10px 40px rgba(0,0,0,.25);
       display:grid;
@@ -127,6 +147,12 @@
       color: rgba(255,255,255,.85);
       -webkit-tap-highlight-color: transparent;
       user-select:none;
+      cursor:pointer;
+    }
+    [data-theme="light"] .iconbtn{
+      background: rgba(0,0,0,.04);
+      color: rgba(0,0,0,.82);
+      box-shadow: 0 10px 40px rgba(0,0,0,.10);
     }
     .iconbtn:active{transform: scale(.98)}
     .dot{
@@ -143,10 +169,16 @@
         radial-gradient(900px 280px at 10% 10%, rgba(76,166,255,.18), transparent 55%),
         radial-gradient(600px 260px at 90% 10%, rgba(140,88,255,.18), transparent 55%),
         linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid var(--stroke);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
+    }
+    [data-theme="light"] .hero{
+      background:
+        radial-gradient(900px 280px at 10% 10%, rgba(76,166,255,.20), transparent 55%),
+        radial-gradient(600px 260px at 90% 10%, rgba(140,88,255,.18), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,.02));
     }
     .hero::before{
       content:"";
@@ -187,6 +219,7 @@
       margin-left: 6px;
       vertical-align: 8px;
     }
+    [data-theme="light"] .balance small{ color: rgba(13,19,32,.70); }
 
     .pill{
       display:inline-flex;
@@ -195,7 +228,7 @@
       padding: 10px 12px;
       border-radius: 999px;
       background: rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid var(--stroke);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       font-size:12px;
@@ -203,10 +236,18 @@
       white-space:nowrap;
       user-select:none;
     }
+    [data-theme="light"] .pill{
+      background: rgba(255,255,255,.55);
+      color: rgba(13,19,32,.82);
+    }
     .pill .spark{
       width:8px;height:8px;border-radius:50%;
-      background: rgba(60, 163, 0, 0.85);
+      background: rgba(0, 138, 0, 0.85);
       box-shadow: 0 0 0 5px rgba(255,255,255,.12);
+    }
+    [data-theme="light"] .pill .spark{
+      background: rgba(13,19,32,.80);
+      box-shadow: 0 0 0 5px rgba(13,19,32,.10);
     }
 
     .herogrid{
@@ -220,21 +261,27 @@
       border-radius: 18px;
       padding: 12px 10px;
       background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid var(--stroke);
       text-align:left;
       display:flex;
       flex-direction:column;
       gap:7px;
       -webkit-tap-highlight-color: transparent;
       user-select:none;
+      cursor:pointer;
     }
+    [data-theme="light"] .action{ background: rgba(0,0,0,.03); }
     .action:active{transform: scale(.99)}
     .aicon{
       width:34px;height:34px;border-radius:14px;
       display:grid;place-items:center;
       background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid var(--stroke);
       color: rgba(255,255,255,.9);
+    }
+    [data-theme="light"] .aicon{
+      background: rgba(255,255,255,.70);
+      color: rgba(13,19,32,.86);
     }
     .action .atitle{
       font-size: 13px;
@@ -265,6 +312,60 @@
       font-size:12px;
       color: rgba(233,238,252,.75);
       user-select:none;
+      cursor:pointer;
+    }
+    [data-theme="light"] .link{ color: rgba(13,19,32,.65); }
+
+    .card{
+      border-radius: var(--radius2);
+      padding: 14px 14px;
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--stroke);
+      box-shadow: 0 16px 44px rgba(0,0,0,.25);
+    }
+    [data-theme="light"] .card{
+      background: rgba(0,0,0,.03);
+      box-shadow: 0 16px 44px rgba(0,0,0,.10);
+    }
+
+    .mini{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .mini .left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .mini .left .label{
+      font-size:12px;
+      color: var(--muted);
+    }
+    .mini .left .val{
+      font-size:14px;
+      font-weight:800;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .pillbtn{
+      font-size:12px;
+      color: rgba(233,238,252,.75);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.18);
+      user-select:none;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    [data-theme="light"] .pillbtn{
+      background: rgba(255,255,255,.65);
+      color: rgba(13,19,32,.70);
     }
 
     .list{
@@ -279,20 +380,32 @@
       padding: 12px 12px;
       border-radius: var(--radius);
       background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--stroke);
       box-shadow: 0 12px 34px rgba(0,0,0,.28);
       align-items:center;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
     }
+    [data-theme="light"] .tx{
+      background: rgba(0,0,0,.025);
+      box-shadow: 0 12px 34px rgba(0,0,0,.10);
+    }
+    .tx:active{transform: scale(.995)}
     .tx .ico{
       width:42px;height:42px;border-radius:18px;
       background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid var(--stroke);
       display:grid;
       place-items:center;
       flex:0 0 auto;
       color: rgba(255,255,255,.9);
       position:relative;
       overflow:hidden;
+    }
+    [data-theme="light"] .tx .ico{
+      background: rgba(255,255,255,.70);
+      color: rgba(13,19,32,.86);
     }
     .tx .ico::before{
       content:"";
@@ -343,55 +456,16 @@
       color: rgba(233,238,252,.70);
       padding: 4px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
+      border: 1px solid var(--stroke);
       background: rgba(0,0,0,.18);
       user-select:none;
+    }
+    [data-theme="light"] .tx .tag{
+      background: rgba(255,255,255,.65);
+      color: rgba(13,19,32,.65);
     }
     .pos{color: var(--good)}
     .neg{color: var(--bad)}
-
-    .card{
-      border-radius: var(--radius2);
-      padding: 14px 14px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.11);
-      box-shadow: 0 16px 44px rgba(0,0,0,.25);
-    }
-
-    .mini{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      margin-top: 6px;
-    }
-    .mini .left{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      min-width:0;
-    }
-    .mini .left .label{
-      font-size:12px;
-      color: var(--muted);
-    }
-    .mini .left .val{
-      font-size:14px;
-      font-weight:800;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .mini .right{
-      font-size:12px;
-      color: rgba(233,238,252,.75);
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      user-select:none;
-      white-space:nowrap;
-    }
 
     .navbar{
       margin-top:auto;
@@ -400,13 +474,17 @@
       padding: 10px 10px;
       border-radius: 999px;
       background: rgba(10,14,22,.62);
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid var(--stroke);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       display:flex;
       justify-content:space-around;
       gap:10px;
       box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    [data-theme="light"] .navbar{
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 20px 60px rgba(0,0,0,.16);
     }
     .navitem{
       display:flex;
@@ -419,26 +497,279 @@
       user-select:none;
       min-width: 72px;
       -webkit-tap-highlight-color: transparent;
+      cursor:pointer;
     }
+    [data-theme="light"] .navitem{ color: rgba(13,19,32,.65); }
     .navitem.active{
       color: rgba(255,255,255,.92);
       background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid var(--stroke);
+    }
+    [data-theme="light"] .navitem.active{
+      color: rgba(13,19,32,.88);
+      background: rgba(0,0,0,.04);
     }
     .navitem span{
       font-size:11px;
       letter-spacing:.1px;
     }
 
-    /* subtle iOS feel */
-    .haptic{
-      position:fixed;
-      left:-9999px;
-      top:-9999px;
-      width:1px;height:1px;
+    /* Screens */
+    .screen{display:none}
+    .screen.active{display:block}
+
+    /* Bottom sheet / modal */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display:none;
+      align-items:flex-end;
+      z-index: 9990;
+      padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+    }
+    [data-theme="light"] .overlay{ background: rgba(0,0,0,.25); }
+    .overlay.show{display:flex}
+    .sheet{
+      width:100%;
+      max-width: 440px;
+      margin: 0 auto;
+      border-radius: 26px;
+      background: rgba(12,16,26,.85);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 24px 80px rgba(0,0,0,.60);
+      overflow:hidden;
+    }
+    [data-theme="light"] .sheet{
+      background: rgba(255,255,255,.92);
+      border-color: rgba(0,0,0,.10);
+      box-shadow: 0 24px 80px rgba(0,0,0,.18);
+    }
+    .sheetHeader{
+      padding: 12px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    [data-theme="light"] .sheetHeader{ border-bottom-color: rgba(0,0,0,.08); }
+    .sheetTitle{
+      font-weight: 860;
+      letter-spacing:.1px;
+      font-size: 14px;
+    }
+    .sheetClose{
+      width:38px;height:38px;border-radius:16px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      display:grid;place-items:center;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    [data-theme="light"] .sheetClose{ background: rgba(0,0,0,.03); }
+    .sheetBody{
+      padding: 12px 14px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .fieldRow{
+      display:flex;
+      gap:10px;
+    }
+    .field{
+      flex:1 1 auto;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    label{
+      font-size:12px;
+      color: var(--muted);
+    }
+    input, select, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline:none;
+      font-size: 14px;
+    }
+    [data-theme="light"] input, [data-theme="light"] select, [data-theme="light"] textarea{
+      background: rgba(0,0,0,.03);
+      color: var(--text);
+    }
+    textarea{min-height: 70px; resize:none}
+    .btnRow{
+      display:flex;
+      gap:10px;
+      margin-top: 4px;
+    }
+    .btn{
+      flex:1 1 auto;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-weight: 820;
+      letter-spacing:.1px;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    [data-theme="light"] .btn{
+      background: rgba(0,0,0,.04);
+      color: rgba(13,19,32,.92);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(76,166,255,.85), rgba(140,88,255,.85));
+      border-color: rgba(255,255,255,.16);
+      color: white;
+    }
+    .btn.danger{
+      background: rgba(255,90,122,.16);
+      border-color: rgba(255,90,122,.28);
+      color: rgba(255,255,255,.92);
+    }
+    [data-theme="light"] .btn.danger{
+      color: rgba(13,19,32,.92);
     }
 
-    /* Small devices */
+    /* Toast */
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom: calc(92px + env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(14px);
+      color: rgba(255,255,255,.92);
+      font-size: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      z-index: 9999;
+      opacity:0;
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+      max-width: calc(100% - 24px);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    [data-theme="light"] .toast{
+      background: rgba(255,255,255,.82);
+      color: rgba(13,19,32,.92);
+      border-color: rgba(0,0,0,.10);
+      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+    .toast.show{
+      opacity:1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* Simple charts */
+    .chart{
+      width:100%;
+      height: 140px;
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+      position:relative;
+      overflow:hidden;
+    }
+    [data-theme="light"] .chart{ background: rgba(0,0,0,.02); }
+    .bars{
+      position:absolute;
+      left:12px; right:12px; bottom:12px; top:12px;
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+    }
+    .bar{
+      flex:1 1 0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    [data-theme="light"] .bar{
+      background: rgba(0,0,0,.10);
+      border-color: rgba(0,0,0,.08);
+    }
+    .bar.active{
+      background: linear-gradient(180deg, rgba(60,242,166,.85), rgba(76,166,255,.75));
+      border-color: rgba(255,255,255,.14);
+    }
+    .chartTitle{
+      font-size: 12px;
+      color: var(--muted);
+      position:relative;
+      z-index:1;
+      margin-bottom: 10px;
+    }
+
+    /* Settings toggles */
+    .toggleRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 12px;
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+    }
+    [data-theme="light"] .toggleRow{ background: rgba(0,0,0,.02); }
+    .toggleRow .tleft{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      min-width:0;
+    }
+    .toggleRow .ttitle{
+      font-weight: 820;
+      font-size: 13px;
+    }
+    .toggleRow .tsub{
+      font-size: 12px;
+      color: var(--muted);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .switch{
+      width: 46px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.08);
+      position:relative;
+      flex:0 0 auto;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    [data-theme="light"] .switch{ background: rgba(0,0,0,.06); }
+    .knob{
+      position:absolute;
+      top: 3px; left: 3px;
+      width: 22px; height: 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.85);
+      transition: transform .18s ease;
+    }
+    [data-theme="light"] .knob{ background: rgba(13,19,32,.78); }
+    .switch.on{
+      background: rgba(60,242,166,.18);
+      border-color: rgba(60,242,166,.30);
+    }
+    .switch.on .knob{ transform: translateX(18px); background: rgba(60,242,166,.92); }
+
     @media (max-width: 360px){
       .balance{font-size: 30px}
       .herogrid{grid-template-columns: 1fr 1fr}
@@ -448,111 +779,309 @@
 
 <body>
   <div class="app" id="app">
+    <!-- TOPBAR -->
     <div class="topbar">
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div class="brandtext">
-          <div class="title">Wallet</div>
+          <div class="title" id="appTitle">Wallet</div>
           <div class="sub" id="userLine">Jonas Leppelt • Privatkonto</div>
         </div>
       </div>
 
       <div class="chiprow">
-        <div class="iconbtn" id="btnScan" title="Scannen">
-          <!-- QR-ish icon -->
+        <div class="iconbtn" id="btnSearch" title="Suchen">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 9V6a2 2 0 0 1 2-2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M20 9V6a2 2 0 0 0-2-2h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M4 15v3a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M20 15v3a2 2 0 0 1-2 2h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-
+        <div class="iconbtn" id="btnNotif" title="Benachrichtigungen">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 7h18s-3 0-3-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 19a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div class="iconbtn" id="btnStatus" title="Status">
           <div class="dot" aria-hidden="true"></div>
         </div>
       </div>
     </div>
 
-    <section class="hero" aria-label="Kontostand">
-      <div class="herohead">
-        <div>
-          <div class="klabel">Verfügbarer Kontostand</div>
-          <div class="balance" id="balanceText">47’351.90 <small>CHF</small></div>
-          <div class="klabel" id="asOfText" style="margin-top:6px;">Stand: —</div>
+    <!-- SCREEN: WALLET -->
+    <section class="screen active" id="screenWallet">
+      <section class="hero" aria-label="Kontostand">
+        <div class="herohead">
+          <div>
+            <div class="klabel">Verfügbarer Kontostand</div>
+            <div class="balance" id="balanceText">— <small>CHF</small></div>
+            <div class="klabel" id="asOfText" style="margin-top:6px;">Stand: —</div>
+          </div>
+          <div class="pill" id="pill">
+            <span class="spark" aria-hidden="true"></span>
+            <span id="pillText">Karte aktiv • CHF</span>
+          </div>
         </div>
-        <div class="pill" id="pill">
-          <span class="spark" aria-hidden="true"></span>
-          <span id="pillText">Karte aktiv • CHF</span>
+
+        <div class="herogrid" role="group" aria-label="Aktionen">
+          <div class="action" id="btnSend" role="button" tabindex="0">
+            <div class="aicon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="atitle">Senden</div>
+            <div class="asub">Überweisung</div>
+          </div>
+
+          <div class="action" id="btnRequest" role="button" tabindex="0">
+            <div class="aicon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="atitle">Anfordern</div>
+            <div class="asub">Zahlungslink</div>
+          </div>
+
+          <div class="action" id="btnAddTx" role="button" tabindex="0">
+            <div class="aicon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="atitle">Buchen</div>
+            <div class="asub">Ein/Ausgang</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="card" aria-label="Kontoübersicht">
+        <div class="row" style="margin:0;">
+          <h2>Kontoübersicht</h2>
+          <div class="link" id="syncText">Synchronisiert</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">IBAN</div>
+            <div class="val" id="ibanText">CH93 0076 2011 6238 5295 7</div>
+          </div>
+          <div class="pillbtn" id="copyIban">Kopieren</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Karte</div>
+            <div class="val" id="cardLine">Wallet Debit • **** 1842</div>
+          </div>
+          <div class="pillbtn" id="btnApplePay">Apple Pay</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Monatsbudget</div>
+            <div class="val" id="budgetLine">—</div>
+          </div>
+          <div class="pillbtn" id="btnBudget">Bearbeiten</div>
         </div>
       </div>
 
-      <div class="herogrid" role="group" aria-label="Aktionen">
-        <div class="action" id="btnSend" role="button" tabindex="0">
-          <div class="aicon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="atitle">Senden</div>
-          <div class="asub">Überweisung &amp; QR</div>
+      <div class="row">
+        <h2>Letzte Aktivitäten</h2>
+        <div class="link" id="showAll">Filtern</div>
+      </div>
+
+      <div class="list" id="txList" aria-label="Transaktionen"></div>
+    </section>
+
+    <!-- SCREEN: ANALYTICS -->
+    <section class="screen" id="screenAnalysen">
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Analysen</h2>
+          <div class="link" id="btnExport">Export</div>
         </div>
 
-        <div class="action" id="btnRequest" role="button" tabindex="0">
-          <div class="aicon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+        <div class="mini" style="margin-top:12px;">
+          <div class="left">
+            <div class="label">Ausgaben (aktueller Monat)</div>
+            <div class="val" id="sumExpense">—</div>
           </div>
-          <div class="atitle">Anfordern</div>
-          <div class="asub">Zahlungslink</div>
+          <div class="pillbtn" id="rangeMonth">Monat</div>
         </div>
 
-        <div class="action" id="btnCards" role="button" tabindex="0">
-          <div class="aicon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="2"/>
-              <path d="M3 10h18" stroke="currentColor" stroke-width="2"/>
-            </svg>
+        <div class="mini">
+          <div class="left">
+            <div class="label">Einnahmen (aktueller Monat)</div>
+            <div class="val" id="sumIncome">—</div>
           </div>
-          <div class="atitle">Karten</div>
-          <div class="asub">Limits &amp; Sperren</div>
+          <div class="pillbtn" id="range90">90 Tage</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Budget verbleibend</div>
+            <div class="val" id="budgetRemaining">—</div>
+          </div>
+          <div class="pillbtn" id="btnResetDemo">Demo reset</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Ausgaben-Trend</h2>
+          <div class="link" id="trendHint">Letzte 7 Tage</div>
+        </div>
+        <div class="chart" aria-label="Chart">
+          <div class="chartTitle">Tägliche Ausgaben (Mock)</div>
+          <div class="bars" id="bars"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Kategorien</h2>
+          <div class="link" id="btnCat">Verwalten</div>
+        </div>
+        <div class="list" id="catList" style="margin-top:10px;"></div>
+      </div>
+    </section>
+
+    <!-- SCREEN: PAYMENTS -->
+    <section class="screen" id="screenZahlungen">
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Zahlungen</h2>
+          <div class="link" id="btnScan">QR scannen</div>
+        </div>
+
+        <div class="mini" style="margin-top:12px;">
+          <div class="left">
+            <div class="label">Vorlagen</div>
+            <div class="val">Miete, Abos, Freunde</div>
+          </div>
+          <div class="pillbtn" id="btnTemplates">Öffnen</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Empfänger</div>
+            <div class="val">Neu / Verlauf</div>
+          </div>
+          <div class="pillbtn" id="btnRecipients">Wählen</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Schnellüberweisung</div>
+            <div class="val">Sofort / Standard</div>
+          </div>
+          <div class="pillbtn" id="btnFast">Start</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Offene Anfragen</h2>
+          <div class="link" id="btnNewReq">Neu</div>
+        </div>
+        <div class="list" id="reqList" style="margin-top:10px;"></div>
+      </div>
+    </section>
+
+    <!-- SCREEN: PROFILE/SETTINGS -->
+    <section class="screen" id="screenProfil">
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Profil</h2>
+          <div class="link" id="btnEditProfile">Bearbeiten</div>
+        </div>
+
+        <div class="mini" style="margin-top:12px;">
+          <div class="left">
+            <div class="label">Name</div>
+            <div class="val" id="profileName">—</div>
+          </div>
+          <div class="pillbtn" id="btnLock">Sperren</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Sicherheit</div>
+            <div class="val">Face ID (Demo) • App-PIN</div>
+          </div>
+          <div class="pillbtn" id="btnSecurity">Öffnen</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Einstellungen</h2>
+          <div class="link" id="btnAbout">Info</div>
+        </div>
+
+        <div class="toggleRow" style="margin-top:12px;">
+          <div class="tleft">
+            <div class="ttitle">Dark Mode</div>
+            <div class="tsub">Optik wie iOS Wallet</div>
+          </div>
+          <div class="switch" id="swTheme"><div class="knob"></div></div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Benachrichtigungen</div>
+            <div class="tsub">Eingänge, Budgets, Karten</div>
+          </div>
+          <div class="switch" id="swNotif"><div class="knob"></div></div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Face ID (Demo)</div>
+            <div class="tsub">Beim Öffnen entsperren</div>
+          </div>
+          <div class="switch" id="swBio"><div class="knob"></div></div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Haptik</div>
+            <div class="tsub">Taps &amp; Aktionen</div>
+          </div>
+          <div class="switch" id="swHaptic"><div class="knob"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="margin:0;">
+          <h2>Karten</h2>
+          <div class="link" id="btnCardMgmt">Verwalten</div>
+        </div>
+
+        <div class="mini" style="margin-top:12px;">
+          <div class="left">
+            <div class="label">Status</div>
+            <div class="val" id="cardStatus">Aktiv</div>
+          </div>
+          <div class="pillbtn" id="btnFreeze">Sperren</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Limit (Monat)</div>
+            <div class="val" id="cardLimit">CHF 5’000.00</div>
+          </div>
+          <div class="pillbtn" id="btnLimit">Ändern</div>
         </div>
       </div>
     </section>
 
-    <div class="card" aria-label="Kontoübersicht">
-      <div class="row" style="margin:0;">
-        <h2>Kontoübersicht</h2>
-        <div class="link" id="syncText">Synchronisiert</div>
-      </div>
-      <div class="mini">
-        <div class="left">
-          <div class="label">IBAN</div>
-          <div class="val" id="ibanText">CH93 0076 2011 6238 5295 7</div>
-        </div>
-        <div class="right" id="copyIban">Kopieren</div>
-      </div>
-
-      <div class="mini">
-        <div class="left">
-          <div class="label">Karte</div>
-          <div class="val">Wallet Debit • **** 1842</div>
-        </div>
-        <div class="right">Apple Pay</div>
-      </div>
-    </div>
-
-    <div class="row">
-      <h2>Letzte Aktivitäten</h2>
-      <div class="link" id="showAll">Alle anzeigen</div>
-    </div>
-
-    <div class="list" id="txList" aria-label="Transaktionen"></div>
-
+    <!-- NAVBAR -->
     <nav class="navbar" aria-label="Navigation">
       <div class="navitem active" id="navWallet" role="button" tabindex="0">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -592,35 +1121,133 @@
     </nav>
   </div>
 
-  <div class="haptic" aria-hidden="true"></div>
+  <!-- MODAL / SHEET -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Dialog">
+      <div class="sheetHeader">
+        <div class="sheetTitle" id="sheetTitle">—</div>
+        <div class="sheetClose" id="sheetClose" title="Schliessen">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="sheetBody" id="sheetBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
 
   <script>
-    // --- Config (dein Demo-Profil) ---
-    const USER_NAME = "Jonas Leppelt";
-    const BALANCE_CHF = 47351.90;
+    /***********************
+     *  WALLET APP (DEMO)
+     *  - Single-file "App"
+     *  - LocalStorage persistence
+     *  - Send/Request/Add transactions
+     *  - Search + filter + category
+     *  - Budget + analytics
+     *  - Export CSV/JSON
+     *  - Card freeze + limits (demo)
+     *  - Theme + notifications + "FaceID" lock (demo)
+     ************************/
 
-    // Schweizer Format: 47’351.90 (Apostroph als Tausendertrennzeichen)
-    function formatCHF(amount){
-      // de-CH uses ’ as thousand separator typically; browser might output ’ or ' depending on font.
-      const nf = new Intl.NumberFormat("de-CH", {
-        style: "decimal",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      return nf.format(amount);
+    // --- Demo identity ---
+    const DEFAULTS = {
+      user: {
+        name: "Jonas Leppelt",
+        accountLabel: "Privatkonto",
+        iban: "CH93 0076 2011 6238 5295 7",
+        cardMasked: "**** 1842"
+      },
+      balance: 47351.90,           // Startsaldo (Demo)
+      budgetMonthly: 2400.00,      // Demo-Budget
+      card: { frozen:false, limitMonthly: 5000.00 },
+      settings: { theme:"dark", notif:true, bio:false, haptic:true },
+      requests: [
+        { id: uid(), from:"Mara", amount: 24.90, note:"Lunch", status:"offen", ts: Date.now()-1000*60*60*5 },
+        { id: uid(), from:"Nico", amount: 120.00, note:"Tickets", status:"offen", ts: Date.now()-1000*60*60*28 }
+      ],
+      categories: [
+        { key:"Einkauf", budget: 650 },
+        { key:"Transport", budget: 240 },
+        { key:"Abos", budget: 190 },
+        { key:"Essen", budget: 420 },
+        { key:"Freizeit", budget: 380 },
+        { key:"Sonstiges", budget: 520 }
+      ],
+      tx: [
+        // realistic seed data
+        { id: uid(), name:"SBB Mobile", meta:"Fahrt • Zürich HB → Bern", amount:-38.40, tag:"Heute", icon:"shop", cat:"Transport", ts: Date.now()-1000*60*60*2 },
+        { id: uid(), name:"TWINT • Café Viadukt", meta:"Karte • 09:12", amount:-12.50, tag:"Heute", icon:"card", cat:"Essen", ts: Date.now()-1000*60*60*4 },
+        { id: uid(), name:"Gehalt • Muster AG", meta:"Lohnzahlung • Referenz 2026-02", amount:+8250.00, tag:"Eingang", icon:"transfer", cat:"Sonstiges", ts: Date.now()-1000*60*60*26 },
+        { id: uid(), name:"Swisscom", meta:"Rechnung • 2026-02", amount:-79.90, tag:"Abbuchung", icon:"bill", cat:"Abos", ts: Date.now()-1000*60*60*50 },
+        { id: uid(), name:"Coop Supermarkt", meta:"Einkauf • 18:44", amount:-64.75, tag:"Karte", icon:"shop", cat:"Einkauf", ts: Date.now()-1000*60*60*70 }
+      ]
+    };
+
+    const KEY = "wallet_demo_state_v2";
+
+    function uid(){
+      return Math.random().toString(16).slice(2) + Date.now().toString(16);
     }
 
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(KEY);
+        if(!raw) return structuredClone(DEFAULTS);
+        const s = JSON.parse(raw);
+
+        // mild migrations / defaults
+        s.user ||= structuredClone(DEFAULTS.user);
+        s.settings ||= structuredClone(DEFAULTS.settings);
+        s.card ||= structuredClone(DEFAULTS.card);
+        s.tx ||= [];
+        s.requests ||= [];
+        s.categories ||= structuredClone(DEFAULTS.categories);
+        if(typeof s.balance !== "number") s.balance = DEFAULTS.balance;
+        if(typeof s.budgetMonthly !== "number") s.budgetMonthly = DEFAULTS.budgetMonthly;
+
+        return s;
+      }catch{
+        return structuredClone(DEFAULTS);
+      }
+    }
+
+    function saveState(){
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
+
+    let state = loadState();
+
+    // --- Formatters ---
+    const nf = new Intl.NumberFormat("de-CH", { minimumFractionDigits:2, maximumFractionDigits:2 });
+    function formatCHF(amount){
+      return nf.format(amount);
+    }
+    function fmtMoney(amount){
+      const sign = amount >= 0 ? "+" : "−";
+      return `${sign} ${formatCHF(Math.abs(amount))} CHF`;
+    }
     function nowStamp(){
       const d = new Date();
-      // de-CH: 13.02.2026, 14:08
       return new Intl.DateTimeFormat("de-CH", {
         day:"2-digit", month:"2-digit", year:"numeric",
         hour:"2-digit", minute:"2-digit"
       }).format(d);
     }
+    function dateLabel(ts){
+      const d = new Date(ts);
+      const today = new Date();
+      const y = (x)=>new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+      const diffDays = Math.round((y(today)-y(d))/86400000);
+      if(diffDays === 0) return "Heute";
+      if(diffDays === 1) return "Gestern";
+      return new Intl.DateTimeFormat("de-CH", { day:"2-digit", month:"2-digit", year:"numeric" }).format(d);
+    }
 
+    // --- Icons ---
     function svgFor(kind){
-      // tiny inline glyphs
       const common = 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
       if(kind === "shop"){
         return `<svg width="18" height="18" viewBox="0 0 24 24" ${common}>
@@ -646,112 +1273,1439 @@
           <path d="M3 10h18"></path>
         </svg>`;
       }
+      if(kind === "in"){
+        return `<svg width="18" height="18" viewBox="0 0 24 24" ${common}>
+          <path d="M12 3v18"></path>
+          <path d="M7 8l5-5 5 5"></path>
+        </svg>`;
+      }
+      if(kind === "out"){
+        return `<svg width="18" height="18" viewBox="0 0 24 24" ${common}>
+          <path d="M12 21V3"></path>
+          <path d="M17 16l-5 5-5-5"></path>
+        </svg>`;
+      }
       return `<svg width="18" height="18" viewBox="0 0 24 24" ${common}>
         <path d="M12 2v20"></path><path d="M2 12h20"></path>
       </svg>`;
     }
 
-    // Demo-Transaktionen (realistisch wirkend)
-    const tx = [
-      { name:"Überweisung DE", meta:"Commerzbank DE J.L", amount:-4000, tag:"Abbuchung", icon:"card" },
-      { name:"Überweisung DE", meta:"Commerzbank DE J.L", amount:-1270, tag:"Abbuchung", icon:"card" },
-      { name:"Gehalt • Jonas Leppelt", meta:"Zahlung • Referenz 2026-02", amount:+8250.00, tag:"Eingang", icon:"transfer" },
-      { name:"Überweisung DE", meta:"Commerzbank DE J.L", amount:-3000, tag:"Abbuchung", icon:"card" },
-      { name:"Überweisung DE", meta:"Commerzbank DE J.L", amount:-5000, tag:"Abbuchung", icon:"card" },
-    ];
+    // --- Toast / Haptic ---
+    const toastEl = document.getElementById("toast");
+    let toastTimer = null;
 
-    function render(){
-      document.getElementById("userLine").textContent = `${USER_NAME} • Privatkonto`;
-      document.getElementById("balanceText").innerHTML = `${formatCHF(BALANCE_CHF)} <small>CHF</small>`;
+    function haptic(type="light"){
+      if(!state.settings.haptic) return;
+      // Best effort: Vibration API (works on some devices/browsers)
+      if(navigator.vibrate){
+        navigator.vibrate(type==="heavy" ? 20 : 10);
+      }
+    }
+
+    function toast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1400);
+    }
+
+    // --- Navigation ---
+    const screens = {
+      wallet: document.getElementById("screenWallet"),
+      analysen: document.getElementById("screenAnalysen"),
+      zahlungen: document.getElementById("screenZahlungen"),
+      profil: document.getElementById("screenProfil"),
+    };
+
+    function setActiveScreen(key){
+      Object.entries(screens).forEach(([k, el]) => {
+        el.classList.toggle("active", k === key);
+      });
+      document.getElementById("navWallet").classList.toggle("active", key==="wallet");
+      document.getElementById("navAnalysen").classList.toggle("active", key==="analysen");
+      document.getElementById("navZahlungen").classList.toggle("active", key==="zahlungen");
+      document.getElementById("navProfil").classList.toggle("active", key==="profil");
+      haptic();
+      // "FaceID" lock on open (demo)
+      if(state.settings.bio && key !== "profil"){
+        lockIfNeeded();
+      }
+      renderAll();
+    }
+
+    // --- Modal sheet ---
+    const overlay = document.getElementById("overlay");
+    const sheetTitle = document.getElementById("sheetTitle");
+    const sheetBody = document.getElementById("sheetBody");
+    const sheetClose = document.getElementById("sheetClose");
+
+    function showSheet(title, html){
+      sheetTitle.textContent = title;
+      sheetBody.innerHTML = html;
+      overlay.classList.add("show");
+      overlay.setAttribute("aria-hidden","false");
+      haptic();
+    }
+    function closeSheet(){
+      overlay.classList.remove("show");
+      overlay.setAttribute("aria-hidden","true");
+    }
+    overlay.addEventListener("click", (e)=>{ if(e.target === overlay) closeSheet(); });
+    sheetClose.addEventListener("click", closeSheet);
+
+    // --- Core calculations ---
+    function calcMonthBounds(ref = new Date()){
+      const start = new Date(ref.getFullYear(), ref.getMonth(), 1).getTime();
+      const end = new Date(ref.getFullYear(), ref.getMonth()+1, 1).getTime();
+      return { start, end };
+    }
+
+    function sumTx(filterFn){
+      return state.tx.filter(filterFn).reduce((a,t)=>a+t.amount,0);
+    }
+    function monthExpenses(){
+      const {start,end} = calcMonthBounds(new Date());
+      return Math.abs(sumTx(t => t.ts>=start && t.ts<end && t.amount<0));
+    }
+    function monthIncome(){
+      const {start,end} = calcMonthBounds(new Date());
+      return sumTx(t => t.ts>=start && t.ts<end && t.amount>0);
+    }
+    function budgetRemaining(){
+      return Math.max(0, state.budgetMonthly - monthExpenses());
+    }
+
+    // --- Rendering ---
+    function renderHeader(){
+      document.getElementById("userLine").textContent = `${state.user.name} • ${state.user.accountLabel}`;
+      document.getElementById("profileName").textContent = state.user.name;
+      document.getElementById("ibanText").textContent = state.user.iban;
+      document.getElementById("cardLine").textContent = `Wallet Debit • ${state.user.cardMasked}`;
+      document.getElementById("cardStatus").textContent = state.card.frozen ? "Gesperrt" : "Aktiv";
+      document.getElementById("btnFreeze").textContent = state.card.frozen ? "Entsperren" : "Sperren";
+      document.getElementById("cardLimit").textContent = `CHF ${formatCHF(state.card.limitMonthly)}`;
+
+      // balance
+      document.getElementById("balanceText").innerHTML = `${formatCHF(state.balance)} <small>CHF</small>`;
       document.getElementById("asOfText").textContent = `Stand: ${nowStamp()}`;
       document.getElementById("syncText").textContent = `Synchronisiert • ${nowStamp()}`;
 
+      document.getElementById("budgetLine").textContent =
+        `CHF ${formatCHF(state.budgetMonthly)} • verbleibend ${formatCHF(budgetRemaining())}`;
+
+      // pill
+      document.getElementById("pillText").textContent =
+        `${state.card.frozen ? "Karte gesperrt" : "Karte aktiv"} • CHF`;
+
+      // theme + toggles
+      document.documentElement.setAttribute("data-theme", state.settings.theme === "light" ? "light" : "dark");
+      setSwitch("swTheme", state.settings.theme === "dark");
+      setSwitch("swNotif", !!state.settings.notif);
+      setSwitch("swBio", !!state.settings.bio);
+      setSwitch("swHaptic", !!state.settings.haptic);
+    }
+
+    function renderTxList(){
       const list = document.getElementById("txList");
       list.innerHTML = "";
-      tx.forEach(t => {
+
+      // Show newest first
+      const sorted = [...state.tx].sort((a,b)=>b.ts-a.ts).slice(0, 12);
+      sorted.forEach(t => {
         const isPos = t.amount >= 0;
-        const amt = `${isPos ? "+" : "−"} ${formatCHF(Math.abs(t.amount))} CHF`;
         const el = document.createElement("div");
         el.className = "tx";
         el.innerHTML = `
-          <div class="ico" aria-hidden="true">${svgFor(t.icon)}</div>
+          <div class="ico" aria-hidden="true">${svgFor(t.icon || (isPos?"in":"out"))}</div>
           <div class="mid">
-            <div class="name">${t.name}</div>
-            <div class="meta">${t.meta}</div>
+            <div class="name">${escapeHtml(t.name)}</div>
+            <div class="meta">${escapeHtml(t.meta)} • ${escapeHtml(t.cat || "Sonstiges")} • ${dateLabel(t.ts)}</div>
           </div>
           <div class="amt">
-            <div class="value ${isPos ? "pos" : "neg"}">${amt}</div>
-            <div class="tag">${t.tag}</div>
+            <div class="value ${isPos ? "pos" : "neg"}">${fmtMoney(t.amount)}</div>
+            <div class="tag">${escapeHtml(t.tag || "—")}</div>
           </div>
         `;
+        el.addEventListener("click", ()=> openTxDetails(t.id));
         list.appendChild(el);
       });
     }
 
-    // Ultra-leichtes "Toast"
-    function toast(msg){
-      const t = document.createElement("div");
-      t.textContent = msg;
-      t.style.position = "fixed";
-      t.style.left = "50%";
-      t.style.bottom = "calc(92px + env(safe-area-inset-bottom))";
-      t.style.transform = "translateX(-50%)";
-      t.style.padding = "10px 12px";
-      t.style.borderRadius = "999px";
-      t.style.background = "rgba(0,0,0,.55)";
-      t.style.border = "1px solid rgba(255,255,255,.14)";
-      t.style.backdropFilter = "blur(14px)";
-      t.style.color = "rgba(255,255,255,.92)";
-      t.style.fontSize = "12px";
-      t.style.boxShadow = "0 20px 60px rgba(0,0,0,.45)";
-      t.style.zIndex = "9999";
-      t.style.opacity = "0";
-      t.style.transition = "opacity .18s ease, transform .18s ease";
-      document.body.appendChild(t);
-      requestAnimationFrame(() => {
-        t.style.opacity = "1";
-        t.style.transform = "translateX(-50%) translateY(-2px)";
+    function renderAnalytics(){
+      document.getElementById("sumExpense").textContent = `CHF ${formatCHF(monthExpenses())}`;
+      document.getElementById("sumIncome").textContent = `CHF ${formatCHF(monthIncome())}`;
+      document.getElementById("budgetRemaining").textContent = `CHF ${formatCHF(budgetRemaining())}`;
+
+      // bars mock from last 7 days expenses (real from tx)
+      const barsEl = document.getElementById("bars");
+      barsEl.innerHTML = "";
+      const days = [];
+      for(let i=6;i>=0;i--){
+        const d = new Date();
+        d.setDate(d.getDate()-i);
+        const start = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+        const end = start + 86400000;
+        const exp = Math.abs(sumTx(t => t.ts>=start && t.ts<end && t.amount<0));
+        days.push(exp);
+      }
+      const max = Math.max(...days, 1);
+      days.forEach((v, idx) => {
+        const bar = document.createElement("div");
+        bar.className = "bar" + (idx===6 ? " active":"");
+        bar.style.height = `${Math.max(10, (v/max)*100)}%`;
+        bar.title = `Tag ${idx+1}: CHF ${formatCHF(v)}`;
+        barsEl.appendChild(bar);
       });
-      setTimeout(() => {
-        t.style.opacity = "0";
-        t.style.transform = "translateX(-50%) translateY(6px)";
-        setTimeout(() => t.remove(), 220);
-      }, 1400);
+
+      // category spend (month)
+      const {start,end} = calcMonthBounds(new Date());
+      const catSums = {};
+      state.categories.forEach(c => catSums[c.key]=0);
+      state.tx.forEach(t=>{
+        if(t.ts>=start && t.ts<end && t.amount<0){
+          const k = t.cat || "Sonstiges";
+          catSums[k] = (catSums[k]||0) + Math.abs(t.amount);
+        }
+      });
+
+      const catList = document.getElementById("catList");
+      catList.innerHTML = "";
+      const entries = Object.entries(catSums).sort((a,b)=>b[1]-a[1]).slice(0,6);
+      entries.forEach(([k,v])=>{
+        const budget = (state.categories.find(x=>x.key===k)?.budget) ?? 0;
+        const item = document.createElement("div");
+        item.className = "tx";
+        item.innerHTML = `
+          <div class="ico" aria-hidden="true">${svgFor("bill")}</div>
+          <div class="mid">
+            <div class="name">${escapeHtml(k)}</div>
+            <div class="meta">Monat • Budget CHF ${formatCHF(budget)}</div>
+          </div>
+          <div class="amt">
+            <div class="value neg">− ${formatCHF(v)} CHF</div>
+            <div class="tag">${budget>0 ? Math.round((v/budget)*100) + "%": "—"}</div>
+          </div>
+        `;
+        item.addEventListener("click", ()=> openCategoryEdit(k));
+        catList.appendChild(item);
+      });
     }
 
-    // Events
-    function bind(){
-      const click = (id, msg) => {
-        const el = document.getElementById(id);
-        el.addEventListener("click", () => toast(msg));
-        el.addEventListener("keydown", (e) => {
-          if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toast(msg); }
+    function renderRequests(){
+      const reqList = document.getElementById("reqList");
+      reqList.innerHTML = "";
+      const items = [...state.requests].sort((a,b)=>b.ts-a.ts);
+      if(items.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "toggleRow";
+        empty.innerHTML = `<div class="tleft"><div class="ttitle">Keine offenen Anfragen</div><div class="tsub">Erstelle eine neue Anfrage.</div></div>`;
+        reqList.appendChild(empty);
+        return;
+      }
+      items.forEach(r=>{
+        const el = document.createElement("div");
+        el.className = "tx";
+        el.innerHTML = `
+          <div class="ico" aria-hidden="true">${svgFor("transfer")}</div>
+          <div class="mid">
+            <div class="name">${escapeHtml(r.from)} • ${escapeHtml(r.note || "Anfrage")}</div>
+            <div class="meta">${dateLabel(r.ts)} • Status: ${escapeHtml(r.status)}</div>
+          </div>
+          <div class="amt">
+            <div class="value">${formatCHF(r.amount)} CHF</div>
+            <div class="tag">Aktionen</div>
+          </div>
+        `;
+        el.addEventListener("click", ()=> openRequestActions(r.id));
+        reqList.appendChild(el);
+      });
+    }
+
+    function renderAll(){
+      renderHeader();
+      renderTxList();
+      renderAnalytics();
+      renderRequests();
+      saveState();
+    }
+
+    // --- Utilities ---
+    function escapeHtml(str){
+      return String(str ?? "").replace(/[&<>"']/g, (m)=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+      }[m]));
+    }
+
+    function setSwitch(id, on){
+      const el = document.getElementById(id);
+      el.classList.toggle("on", !!on);
+    }
+
+    // --- Lock (FaceID demo) ---
+    let locked = false;
+    function lockIfNeeded(){
+      if(!state.settings.bio) return;
+      if(locked) return;
+
+      locked = true;
+      showSheet("Entsperren (Demo)", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Face ID</div>
+            <div class="tsub">Tippe auf „Entsperren“ (Demo).</div>
+          </div>
+          <div class="pillbtn" id="unlockBtn">Entsperren</div>
+        </div>
+        <div class="btnRow">
+          <button class="btn danger" id="logoutBtn">Abbrechen</button>
+          <button class="btn primary" id="unlockBtn2">Entsperren</button>
+        </div>
+      `);
+      wireOnce("unlockBtn", ()=>{ locked=false; closeSheet(); toast("Entsperrt"); haptic("heavy"); });
+      wireOnce("unlockBtn2", ()=>{ locked=false; closeSheet(); toast("Entsperrt"); haptic("heavy"); });
+      wireOnce("logoutBtn", ()=>{ closeSheet(); toast("Aktion abgebrochen"); });
+    }
+
+    function wireOnce(id, fn){
+      const el = document.getElementById(id);
+      if(el) el.addEventListener("click", fn, { once:true });
+    }
+
+    // --- Actions: Add / Send / Request / Search / Filter / Export ---
+    function openAddTx(prefillType="expense"){
+      const isIncome = prefillType === "income";
+      showSheet("Buchung hinzufügen", `
+        <div class="fieldRow">
+          <div class="field">
+            <label>Typ</label>
+            <select id="txType">
+              <option value="expense"${!isIncome?" selected":""}>Ausgabe</option>
+              <option value="income"${isIncome?" selected":""}>Einnahme</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Betrag (CHF)</label>
+            <input id="txAmount" inputmode="decimal" placeholder="z.B. 24.90" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Empfänger / Händler</label>
+          <input id="txName" placeholder="z.B. Migros, SBB, Max" />
+        </div>
+
+        <div class="field">
+          <label>Beschreibung</label>
+          <input id="txMeta" placeholder="z.B. Einkauf • Karte" />
+        </div>
+
+        <div class="fieldRow">
+          <div class="field">
+            <label>Kategorie</label>
+            <select id="txCat">${state.categories.map(c=>`<option value="${escapeHtml(c.key)}">${escapeHtml(c.key)}</option>`).join("")}</select>
+          </div>
+          <div class="field">
+            <label>Tag</label>
+            <select id="txTag">
+              <option>Heute</option>
+              <option>Karte</option>
+              <option>Abbuchung</option>
+              <option>Eingang</option>
+              <option>Rechnung</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" id="cancelAdd">Abbrechen</button>
+          <button class="btn primary" id="saveAdd">Speichern</button>
+        </div>
+      `);
+
+      wireOnce("cancelAdd", closeSheet);
+      wireOnce("saveAdd", ()=>{
+        const type = document.getElementById("txType").value;
+        const amtRaw = document.getElementById("txAmount").value.trim().replace("’","").replace("'","");
+        const amt = Number(amtRaw.replace(",", "."));
+        const name = document.getElementById("txName").value.trim() || (type==="income" ? "Eingang" : "Ausgabe");
+        const meta = document.getElementById("txMeta").value.trim() || "Manuelle Buchung";
+        const cat = document.getElementById("txCat").value;
+        const tag = document.getElementById("txTag").value;
+
+        if(!isFinite(amt) || amt <= 0){
+          toast("Bitte gültigen Betrag eingeben");
+          haptic("heavy");
+          return;
+        }
+
+        const signed = type==="income" ? +amt : -amt;
+
+        // Card limit check (demo)
+        if(!state.card.frozen && signed < 0 && Math.abs(signed) > state.card.limitMonthly){
+          toast("Limit überschritten (Demo)");
+          haptic("heavy");
+          return;
+        }
+        if(state.card.frozen && signed < 0){
+          toast("Karte gesperrt (Demo)");
+          haptic("heavy");
+          return;
+        }
+
+        state.tx.push({
+          id: uid(),
+          name, meta,
+          amount: signed,
+          tag,
+          icon: type==="income" ? "transfer" : "shop",
+          cat,
+          ts: Date.now()
         });
-      };
 
-      click("btnSend", "Demo: Senden geöffnet");
-      click("btnRequest", "Demo: Anfordern geöffnet");
-      click("btnCards", "Demo: Kartenverwaltung geöffnet");
-      click("btnScan", "Demo: Scanner geöffnet");
-      click("showAll", "Demo: Alle Aktivitäten");
-      click("navWallet", "Wallet");
-      click("navAnalysen", "Demo: Analysen");
-      click("navZahlungen", "Demo: Zahlungen");
-      click("navProfil", "Demo: Profil");
+        state.balance += signed;
+        closeSheet();
+        toast("Buchung gespeichert");
+        haptic("heavy");
+        renderAll();
 
-      document.getElementById("copyIban").addEventListener("click", async () => {
-        const iban = document.getElementById("ibanText").textContent.trim();
-        try{
-          await navigator.clipboard.writeText(iban);
-          toast("IBAN kopiert");
-        }catch{
-          toast("Kopieren nicht verfügbar");
+        if(state.settings.notif){
+          setTimeout(()=> toast(signed>0 ? "Eingang verbucht" : "Ausgabe verbucht"), 700);
         }
       });
     }
 
-    render();
+    function openSend(){
+      showSheet("Senden (Überweisung)", `
+        <div class="fieldRow">
+          <div class="field">
+            <label>Empfänger</label>
+            <input id="sendTo" placeholder="Name oder IBAN" />
+          </div>
+          <div class="field">
+            <label>Betrag (CHF)</label>
+            <input id="sendAmt" inputmode="decimal" placeholder="z.B. 120.00" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Mitteilung</label>
+          <input id="sendNote" placeholder="z.B. Miete, Dinner, Ticket" />
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="sendCancel">Abbrechen</button>
+          <button class="btn primary" id="sendGo">Senden</button>
+        </div>
+      `);
+
+      wireOnce("sendCancel", closeSheet);
+      wireOnce("sendGo", ()=>{
+        const to = document.getElementById("sendTo").value.trim() || "Empfänger";
+        const amt = Number(document.getElementById("sendAmt").value.trim().replace(",", "."));
+        const note = document.getElementById("sendNote").value.trim() || "Überweisung";
+        if(!isFinite(amt) || amt<=0){ toast("Bitte gültigen Betrag"); haptic("heavy"); return; }
+        if(state.balance < amt){ toast("Nicht genug Guthaben (Demo)"); haptic("heavy"); return; }
+        if(state.card.frozen){ toast("Karte gesperrt (Demo)"); haptic("heavy"); return; }
+
+        state.tx.push({
+          id: uid(),
+          name: `Überweisung • ${to}`,
+          meta: note,
+          amount: -amt,
+          tag: "Überweisung",
+          icon:"transfer",
+          cat:"Sonstiges",
+          ts: Date.now()
+        });
+        state.balance -= amt;
+        closeSheet();
+        toast("Überweisung ausgeführt (Demo)");
+        haptic("heavy");
+        renderAll();
+      });
+    }
+
+    function openRequest(){
+      showSheet("Anfordern (Zahlungslink)", `
+        <div class="fieldRow">
+          <div class="field">
+            <label>Von</label>
+            <input id="reqFrom" placeholder="z.B. Nico" />
+          </div>
+          <div class="field">
+            <label>Betrag (CHF)</label>
+            <input id="reqAmt" inputmode="decimal" placeholder="z.B. 24.90" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Grund</label>
+          <input id="reqNote" placeholder="z.B. Lunch, Ticket, Anteil" />
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="reqCancel">Abbrechen</button>
+          <button class="btn primary" id="reqCreate">Anfrage erstellen</button>
+        </div>
+      `);
+
+      wireOnce("reqCancel", closeSheet);
+      wireOnce("reqCreate", ()=>{
+        const from = document.getElementById("reqFrom").value.trim() || "Kontakt";
+        const amt = Number(document.getElementById("reqAmt").value.trim().replace(",", "."));
+        const note = document.getElementById("reqNote").value.trim() || "Anfrage";
+        if(!isFinite(amt) || amt<=0){ toast("Bitte gültigen Betrag"); haptic("heavy"); return; }
+
+        state.requests.push({ id: uid(), from, amount: amt, note, status:"offen", ts: Date.now() });
+        closeSheet();
+        toast("Anfrage erstellt");
+        haptic("heavy");
+        renderAll();
+      });
+    }
+
+    function openSearchAndFilter(){
+      const cats = ["Alle", ...new Set(state.categories.map(c=>c.key).concat(["Sonstiges"]))];
+      showSheet("Suchen & Filtern", `
+        <div class="field">
+          <label>Suche</label>
+          <input id="q" placeholder="Händler, Text, Betrag…" />
+        </div>
+        <div class="fieldRow">
+          <div class="field">
+            <label>Kategorie</label>
+            <select id="qCat">${cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("")}</select>
+          </div>
+          <div class="field">
+            <label>Typ</label>
+            <select id="qType">
+              <option value="all">Alle</option>
+              <option value="expense">Nur Ausgaben</option>
+              <option value="income">Nur Einnahmen</option>
+            </select>
+          </div>
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="qCancel">Schliessen</button>
+          <button class="btn primary" id="qApply">Anwenden</button>
+        </div>
+      `);
+
+      wireOnce("qCancel", closeSheet);
+      wireOnce("qApply", ()=>{
+        const q = document.getElementById("q").value.trim().toLowerCase();
+        const cat = document.getElementById("qCat").value;
+        const type = document.getElementById("qType").value;
+
+        const filtered = [...state.tx].sort((a,b)=>b.ts-a.ts).filter(t=>{
+          if(cat !== "Alle" && (t.cat||"Sonstiges") !== cat) return false;
+          if(type === "expense" && !(t.amount < 0)) return false;
+          if(type === "income" && !(t.amount > 0)) return false;
+          if(!q) return true;
+          const hay = `${t.name} ${t.meta} ${t.tag} ${t.cat} ${Math.abs(t.amount)}`.toLowerCase();
+          return hay.includes(q);
+        });
+
+        closeSheet();
+        openTxListModal(filtered, `Ergebnisse (${filtered.length})`);
+      });
+    }
+
+    function openTxListModal(items, title="Aktivitäten"){
+      showSheet(title, `
+        <div class="fieldRow" style="gap:8px;">
+          <button class="btn" id="sortNew">Neueste</button>
+          <button class="btn" id="sortBig">Grösste</button>
+        </div>
+        <div class="list" id="modalTxList"></div>
+      `);
+
+      const list = document.getElementById("modalTxList");
+
+      const render = (arr)=>{
+        list.innerHTML = "";
+        if(arr.length === 0){
+          const empty = document.createElement("div");
+          empty.className = "toggleRow";
+          empty.innerHTML = `<div class="tleft"><div class="ttitle">Keine Treffer</div><div class="tsub">Versuche andere Filter.</div></div>`;
+          list.appendChild(empty);
+          return;
+        }
+        arr.slice(0, 50).forEach(t=>{
+          const isPos = t.amount >= 0;
+          const el = document.createElement("div");
+          el.className = "tx";
+          el.innerHTML = `
+            <div class="ico" aria-hidden="true">${svgFor(t.icon || (isPos?"in":"out"))}</div>
+            <div class="mid">
+              <div class="name">${escapeHtml(t.name)}</div>
+              <div class="meta">${escapeHtml(t.meta)} • ${escapeHtml(t.cat || "Sonstiges")} • ${dateLabel(t.ts)}</div>
+            </div>
+            <div class="amt">
+              <div class="value ${isPos ? "pos" : "neg"}">${fmtMoney(t.amount)}</div>
+              <div class="tag">${escapeHtml(t.tag || "—")}</div>
+            </div>
+          `;
+          el.addEventListener("click", ()=>{ closeSheet(); openTxDetails(t.id); });
+          list.appendChild(el);
+        });
+      };
+
+      let current = [...items];
+      render(current);
+
+      wireOnce("sortNew", ()=>{
+        current = [...items].sort((a,b)=>b.ts-a.ts);
+        render(current);
+        toast("Sortiert: Neueste");
+      });
+      wireOnce("sortBig", ()=>{
+        current = [...items].sort((a,b)=>Math.abs(b.amount)-Math.abs(a.amount));
+        render(current);
+        toast("Sortiert: Grösste");
+      });
+    }
+
+    function openTxDetails(id){
+      const t = state.tx.find(x=>x.id===id);
+      if(!t) return;
+
+      const isPos = t.amount >= 0;
+      showSheet("Transaktion", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">${escapeHtml(t.name)}</div>
+            <div class="tsub">${escapeHtml(t.meta)} • ${dateLabel(t.ts)}</div>
+          </div>
+          <div class="pillbtn">${isPos ? "Eingang":"Ausgang"}</div>
+        </div>
+
+        <div class="mini" style="margin-top:10px;">
+          <div class="left">
+            <div class="label">Betrag</div>
+            <div class="val ${isPos?"pos":"neg"}">${fmtMoney(t.amount)}</div>
+          </div>
+          <div class="pillbtn">${escapeHtml(t.tag || "—")}</div>
+        </div>
+
+        <div class="mini">
+          <div class="left">
+            <div class="label">Kategorie</div>
+            <div class="val">${escapeHtml(t.cat || "Sonstiges")}</div>
+          </div>
+          <div class="pillbtn" id="editCat">Ändern</div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn danger" id="delTx">Löschen</button>
+          <button class="btn primary" id="dupTx">Duplizieren</button>
+        </div>
+      `);
+
+      wireOnce("editCat", ()=> openTxCategoryPicker(t.id));
+      wireOnce("dupTx", ()=>{
+        state.tx.push({ ...t, id: uid(), ts: Date.now(), tag: "Duplikat" });
+        state.balance += t.amount;
+        closeSheet();
+        toast("Dupliziert (Demo)");
+        renderAll();
+      });
+      wireOnce("delTx", ()=>{
+        // revert balance
+        state.balance -= t.amount;
+        state.tx = state.tx.filter(x=>x.id!==id);
+        closeSheet();
+        toast("Gelöscht");
+        haptic("heavy");
+        renderAll();
+      });
+    }
+
+    function openTxCategoryPicker(txId){
+      const t = state.tx.find(x=>x.id===txId);
+      if(!t) return;
+      showSheet("Kategorie ändern", `
+        <div class="field">
+          <label>Neue Kategorie</label>
+          <select id="newCat">${state.categories.map(c=>`<option value="${escapeHtml(c.key)}"${(t.cat===c.key)?" selected":""}>${escapeHtml(c.key)}</option>`).join("")}
+            <option value="Sonstiges"${(t.cat==="Sonstiges")?" selected":""}>Sonstiges</option>
+          </select>
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="catCancel">Abbrechen</button>
+          <button class="btn primary" id="catSave">Speichern</button>
+        </div>
+      `);
+      wireOnce("catCancel", closeSheet);
+      wireOnce("catSave", ()=>{
+        t.cat = document.getElementById("newCat").value;
+        closeSheet();
+        toast("Kategorie aktualisiert");
+        renderAll();
+      });
+    }
+
+    function openRequestActions(id){
+      const r = state.requests.find(x=>x.id===id);
+      if(!r) return;
+      showSheet("Anfrage", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">${escapeHtml(r.from)} • ${escapeHtml(r.note || "Anfrage")}</div>
+            <div class="tsub">${dateLabel(r.ts)} • Status: ${escapeHtml(r.status)}</div>
+          </div>
+          <div class="pillbtn">${formatCHF(r.amount)} CHF</div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn danger" id="reqDecline">Ablehnen</button>
+          <button class="btn primary" id="reqPay">Bezahlt markieren</button>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" id="reqRemind">Erinnern</button>
+          <button class="btn" id="reqDelete">Löschen</button>
+        </div>
+      `);
+
+      wireOnce("reqDecline", ()=>{
+        r.status = "abgelehnt";
+        closeSheet();
+        toast("Anfrage abgelehnt");
+        renderAll();
+      });
+      wireOnce("reqPay", ()=>{
+        // record as income
+        state.tx.push({
+          id: uid(),
+          name: `Eingang • ${r.from}`,
+          meta: r.note || "Anfrage bezahlt",
+          amount: +r.amount,
+          tag: "Eingang",
+          icon:"transfer",
+          cat:"Sonstiges",
+          ts: Date.now()
+        });
+        state.balance += r.amount;
+        r.status = "bezahlt";
+        closeSheet();
+        toast("Als bezahlt verbucht");
+        haptic("heavy");
+        renderAll();
+      });
+      wireOnce("reqRemind", ()=>{
+        closeSheet();
+        toast("Erinnerung gesendet (Demo)");
+      });
+      wireOnce("reqDelete", ()=>{
+        state.requests = state.requests.filter(x=>x.id!==id);
+        closeSheet();
+        toast("Anfrage gelöscht");
+        renderAll();
+      });
+    }
+
+    function openBudgetEditor(){
+      showSheet("Monatsbudget", `
+        <div class="field">
+          <label>Budget (CHF)</label>
+          <input id="bAmt" inputmode="decimal" placeholder="${formatCHF(state.budgetMonthly)}" />
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="bCancel">Abbrechen</button>
+          <button class="btn primary" id="bSave">Speichern</button>
+        </div>
+      `);
+      wireOnce("bCancel", closeSheet);
+      wireOnce("bSave", ()=>{
+        const amt = Number(document.getElementById("bAmt").value.trim().replace(",", "."));
+        if(!isFinite(amt) || amt<=0){ toast("Bitte gültiges Budget"); haptic("heavy"); return; }
+        state.budgetMonthly = amt;
+        closeSheet();
+        toast("Budget gespeichert");
+        renderAll();
+      });
+    }
+
+    function openCategoryEdit(key){
+      const cat = state.categories.find(c=>c.key===key);
+      if(!cat) return;
+      showSheet("Kategorie", `
+        <div class="field">
+          <label>Name</label>
+          <input id="cName" value="${escapeHtml(cat.key)}" />
+        </div>
+        <div class="field">
+          <label>Budget (CHF/Monat)</label>
+          <input id="cBudget" inputmode="decimal" value="${formatCHF(cat.budget)}" />
+        </div>
+        <div class="btnRow">
+          <button class="btn danger" id="cDelete">Löschen</button>
+          <button class="btn primary" id="cSave">Speichern</button>
+        </div>
+      `);
+
+      wireOnce("cDelete", ()=>{
+        // move tx to Sonstiges
+        state.tx.forEach(t=>{ if(t.cat===cat.key) t.cat = "Sonstiges"; });
+        state.categories = state.categories.filter(c=>c.key!==cat.key);
+        closeSheet();
+        toast("Kategorie gelöscht");
+        renderAll();
+      });
+
+      wireOnce("cSave", ()=>{
+        const newName = document.getElementById("cName").value.trim() || cat.key;
+        const bud = Number(document.getElementById("cBudget").value.trim().replace(",", "."));
+        if(!isFinite(bud) || bud<0){ toast("Budget ungültig"); haptic("heavy"); return; }
+
+        // rename category across transactions
+        state.tx.forEach(t=>{ if(t.cat===cat.key) t.cat = newName; });
+        cat.key = newName;
+        cat.budget = bud;
+
+        closeSheet();
+        toast("Kategorie gespeichert");
+        renderAll();
+      });
+    }
+
+    function openCategoryManager(){
+      showSheet("Kategorien verwalten", `
+        <div class="btnRow">
+          <button class="btn" id="cNew">Neu</button>
+          <button class="btn primary" id="cClose">Schliessen</button>
+        </div>
+        <div class="list" id="cMngList"></div>
+      `);
+
+      const list = document.getElementById("cMngList");
+      const render = ()=>{
+        list.innerHTML = "";
+        state.categories.forEach(c=>{
+          const el = document.createElement("div");
+          el.className = "tx";
+          el.innerHTML = `
+            <div class="ico" aria-hidden="true">${svgFor("bill")}</div>
+            <div class="mid">
+              <div class="name">${escapeHtml(c.key)}</div>
+              <div class="meta">Budget: CHF ${formatCHF(c.budget)}</div>
+            </div>
+            <div class="amt">
+              <div class="value">—</div>
+              <div class="tag">Bearbeiten</div>
+            </div>
+          `;
+          el.addEventListener("click", ()=> openCategoryEdit(c.key));
+          list.appendChild(el);
+        });
+      };
+      render();
+
+      wireOnce("cClose", closeSheet);
+      wireOnce("cNew", ()=>{
+        const newKey = `Neu ${state.categories.length+1}`;
+        state.categories.push({ key:newKey, budget: 100 });
+        toast("Kategorie erstellt");
+        renderAll();
+        closeSheet();
+        openCategoryEdit(newKey);
+      });
+    }
+
+    function openExport(){
+      showSheet("Export", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">CSV herunterladen</div>
+            <div class="tsub">Transaktionen als Datei speichern</div>
+          </div>
+          <div class="pillbtn" id="dlCsv">CSV</div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">JSON sichern</div>
+            <div class="tsub">Kompletter App-Status</div>
+          </div>
+          <div class="pillbtn" id="dlJson">JSON</div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Import JSON</div>
+            <div class="tsub">Status wiederherstellen</div>
+          </div>
+          <div class="pillbtn" id="impJson">Import</div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" id="exClose">Schliessen</button>
+          <button class="btn danger" id="wipe">Alles löschen</button>
+        </div>
+      `);
+
+      wireOnce("exClose", closeSheet);
+
+      wireOnce("dlCsv", ()=>{
+        const rows = [
+          ["Datum","Name","Beschreibung","Kategorie","Tag","Betrag_CHF"].join(";")
+        ];
+        const sorted = [...state.tx].sort((a,b)=>b.ts-a.ts);
+        sorted.forEach(t=>{
+          rows.push([
+            new Date(t.ts).toISOString(),
+            safeCsv(t.name),
+            safeCsv(t.meta),
+            safeCsv(t.cat || "Sonstiges"),
+            safeCsv(t.tag || ""),
+            (t.amount).toFixed(2)
+          ].join(";"));
+        });
+        downloadBlob(rows.join("\n"), "wallet-transaktionen.csv", "text/csv;charset=utf-8");
+        toast("CSV erstellt");
+      });
+
+      wireOnce("dlJson", ()=>{
+        downloadBlob(JSON.stringify(state, null, 2), "wallet-backup.json", "application/json");
+        toast("JSON exportiert");
+      });
+
+      wireOnce("impJson", ()=>{
+        showSheet("Import JSON", `
+          <div class="field">
+            <label>JSON einfügen</label>
+            <textarea id="jsonIn" placeholder='{ "user": ..., "tx": ... }'></textarea>
+          </div>
+          <div class="btnRow">
+            <button class="btn" id="impCancel">Abbrechen</button>
+            <button class="btn primary" id="impDo">Importieren</button>
+          </div>
+        `);
+
+        wireOnce("impCancel", closeSheet);
+        wireOnce("impDo", ()=>{
+          try{
+            const parsed = JSON.parse(document.getElementById("jsonIn").value.trim());
+            // shallow validate
+            if(!parsed || typeof parsed !== "object") throw new Error("Invalid");
+            state = parsed;
+            saveState();
+            closeSheet();
+            toast("Import erfolgreich");
+            renderAll();
+          }catch{
+            toast("JSON ungültig");
+            haptic("heavy");
+          }
+        });
+      });
+
+      wireOnce("wipe", ()=>{
+        localStorage.removeItem(KEY);
+        state = structuredClone(DEFAULTS);
+        closeSheet();
+        toast("Zurückgesetzt");
+        haptic("heavy");
+        renderAll();
+      });
+    }
+
+    function safeCsv(s){
+      s = String(s ?? "");
+      // simple escaping
+      return '"' + s.replace(/"/g,'""') + '"';
+    }
+    function downloadBlob(content, filename, mime){
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function openCardManagement(){
+      showSheet("Kartenverwaltung", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Karte</div>
+            <div class="tsub">${state.card.frozen ? "Gesperrt" : "Aktiv"} • ${state.user.cardMasked}</div>
+          </div>
+          <div class="pillbtn" id="toggleFreeze">${state.card.frozen ? "Entsperren" : "Sperren"}</div>
+        </div>
+
+        <div class="fieldRow">
+          <div class="field">
+            <label>Limit/Monat (CHF)</label>
+            <input id="limitIn" inputmode="decimal" placeholder="${formatCHF(state.card.limitMonthly)}" />
+          </div>
+          <div class="field">
+            <label>Apple Pay</label>
+            <input value="Aktiv (Demo)" disabled />
+          </div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" id="cmClose">Schliessen</button>
+          <button class="btn primary" id="cmSave">Speichern</button>
+        </div>
+      `);
+
+      wireOnce("cmClose", closeSheet);
+      wireOnce("toggleFreeze", ()=>{
+        state.card.frozen = !state.card.frozen;
+        toast(state.card.frozen ? "Karte gesperrt" : "Karte entsperrt");
+        haptic("heavy");
+        renderAll();
+        closeSheet();
+      });
+
+      wireOnce("cmSave", ()=>{
+        const v = Number(document.getElementById("limitIn").value.trim().replace(",", "."));
+        if(!isFinite(v) || v<=0){ toast("Limit ungültig"); haptic("heavy"); return; }
+        state.card.limitMonthly = v;
+        closeSheet();
+        toast("Limit gespeichert");
+        renderAll();
+      });
+    }
+
+    function openProfileEditor(){
+      showSheet("Profil bearbeiten", `
+        <div class="field">
+          <label>Name</label>
+          <input id="pName" value="${escapeHtml(state.user.name)}" />
+        </div>
+        <div class="fieldRow">
+          <div class="field">
+            <label>Konto</label>
+            <input id="pLabel" value="${escapeHtml(state.user.accountLabel)}" />
+          </div>
+          <div class="field">
+            <label>Startsaldo (CHF)</label>
+            <input id="pBal" inputmode="decimal" placeholder="${formatCHF(state.balance)}" />
+          </div>
+        </div>
+        <div class="field">
+          <label>IBAN</label>
+          <input id="pIban" value="${escapeHtml(state.user.iban)}" />
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="pCancel">Abbrechen</button>
+          <button class="btn primary" id="pSave">Speichern</button>
+        </div>
+      `);
+
+      wireOnce("pCancel", closeSheet);
+      wireOnce("pSave", ()=>{
+        state.user.name = document.getElementById("pName").value.trim() || state.user.name;
+        state.user.accountLabel = document.getElementById("pLabel").value.trim() || state.user.accountLabel;
+        state.user.iban = document.getElementById("pIban").value.trim() || state.user.iban;
+
+        const b = document.getElementById("pBal").value.trim();
+        if(b){
+          const v = Number(b.replace(",", "."));
+          if(isFinite(v)) state.balance = v;
+        }
+
+        closeSheet();
+        toast("Profil gespeichert");
+        renderAll();
+      });
+    }
+
+    function openSecurity(){
+      showSheet("Sicherheit (Demo)", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Face ID (Demo)</div>
+            <div class="tsub">Aktiviert in Einstellungen</div>
+          </div>
+          <div class="pillbtn" id="testLock">Test</div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">App-PIN (Demo)</div>
+            <div class="tsub">Nicht implementiert (UI-Demo)</div>
+          </div>
+          <div class="pillbtn" id="pinInfo">Info</div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" id="secClose">Schliessen</button>
+          <button class="btn danger" id="secSim">Simulieren</button>
+        </div>
+      `);
+
+      wireOnce("secClose", closeSheet);
+      wireOnce("pinInfo", ()=> toast("PIN: Demo – nur UI"));
+      wireOnce("testLock", ()=>{
+        closeSheet();
+        locked = false;
+        lockIfNeeded();
+      });
+      wireOnce("secSim", ()=>{
+        closeSheet();
+        toast("Sicherheitsereignis (Demo)");
+      });
+    }
+
+    function openAbout(){
+      showSheet("Info", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Wallet (Demo)</div>
+            <div class="tsub">Single-File UI • CHF • Offline (LocalStorage)</div>
+          </div>
+          <div class="pillbtn">v2</div>
+        </div>
+
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Hinweis</div>
+            <div class="tsub">Keine echte Bank/Wallet. Nur Mockup.</div>
+          </div>
+          <div class="pillbtn" id="copyVer">Kopieren</div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn" id="aboutClose">Schliessen</button>
+          <button class="btn primary" id="demoTips">Tipps</button>
+        </div>
+      `);
+
+      wireOnce("aboutClose", closeSheet);
+      wireOnce("copyVer", async ()=>{
+        try{
+          await navigator.clipboard.writeText("Wallet Demo v2 – CHF");
+          toast("Kopiert");
+        }catch{
+          toast("Kopieren nicht verfügbar");
+        }
+      });
+      wireOnce("demoTips", ()=>{
+        showSheet("Tipps (iPhone)", `
+          <div class="toggleRow">
+            <div class="tleft">
+              <div class="ttitle">Als App nutzen</div>
+              <div class="tsub">Safari → Teilen → „Zum Home-Bildschirm“</div>
+            </div>
+            <div class="pillbtn">iOS</div>
+          </div>
+          <div class="toggleRow">
+            <div class="tleft">
+              <div class="ttitle">Offline</div>
+              <div class="tsub">Daten bleiben lokal im Browser gespeichert.</div>
+            </div>
+            <div class="pillbtn">Local</div>
+          </div>
+          <div class="btnRow">
+            <button class="btn primary" id="tipsClose">Ok</button>
+          </div>
+        `);
+        wireOnce("tipsClose", closeSheet);
+      });
+    }
+
+    function openQRScannerDemo(){
+      showSheet("QR-Scanner (Demo)", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Kamera</div>
+            <div class="tsub">Browser-Scanner ist hier nur Demo.</div>
+          </div>
+          <div class="pillbtn" id="scanSim">Simulieren</div>
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="scanClose">Schliessen</button>
+          <button class="btn primary" id="scanPay">Zahlung</button>
+        </div>
+      `);
+
+      wireOnce("scanClose", closeSheet);
+      wireOnce("scanSim", ()=>{
+        toast("QR erkannt: Rechnung 79.90 CHF (Demo)");
+        haptic();
+      });
+      wireOnce("scanPay", ()=>{
+        closeSheet();
+        // simulate payment
+        state.tx.push({
+          id: uid(),
+          name: "QR Zahlung • Rechnung",
+          meta: "Scanner • Demo",
+          amount: -79.90,
+          tag: "QR",
+          icon:"bill",
+          cat:"Abos",
+          ts: Date.now()
+        });
+        state.balance -= 79.90;
+        toast("Bezahlt (Demo)");
+        haptic("heavy");
+        renderAll();
+      });
+    }
+
+    function openTemplates(){
+      showSheet("Vorlagen", `
+        <div class="list">
+          ${templateItem("Miete", 1850, "Wohnung • Dauerauftrag")}
+          ${templateItem("Abo Fitness", 89, "Abo • monatlich")}
+          ${templateItem("Freund: Nico", 25, "Essen • Split")}
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="tplClose">Schliessen</button>
+          <button class="btn primary" id="tplNew">Neu</button>
+        </div>
+      `);
+      wireOnce("tplClose", closeSheet);
+      wireOnce("tplNew", ()=> toast("Vorlage erstellen (Demo)"));
+    }
+    function templateItem(title, amt, meta){
+      return `
+        <div class="tx" onclick="window.__tpl('${escapeHtml(title)}', ${amt}, '${escapeHtml(meta)}')">
+          <div class="ico" aria-hidden="true">${svgFor("transfer")}</div>
+          <div class="mid">
+            <div class="name">${escapeHtml(title)}</div>
+            <div class="meta">${escapeHtml(meta)}</div>
+          </div>
+          <div class="amt">
+            <div class="value neg">− ${formatCHF(amt)} CHF</div>
+            <div class="tag">Nutzen</div>
+          </div>
+        </div>
+      `;
+    }
+    window.__tpl = (title, amt, meta)=>{
+      closeSheet();
+      showSheet("Vorlage nutzen", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">${escapeHtml(title)}</div>
+            <div class="tsub">${escapeHtml(meta)}</div>
+          </div>
+          <div class="pillbtn">${formatCHF(amt)} CHF</div>
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="tplCancel">Abbrechen</button>
+          <button class="btn primary" id="tplGo">Ausführen</button>
+        </div>
+      `);
+      wireOnce("tplCancel", closeSheet);
+      wireOnce("tplGo", ()=>{
+        state.tx.push({
+          id: uid(),
+          name: `Vorlage • ${title}`,
+          meta,
+          amount: -amt,
+          tag:"Vorlage",
+          icon:"transfer",
+          cat:"Sonstiges",
+          ts: Date.now()
+        });
+        state.balance -= amt;
+        closeSheet();
+        toast("Ausgeführt (Demo)");
+        haptic("heavy");
+        renderAll();
+      });
+    };
+
+    function openRecipients(){
+      showSheet("Empfänger (Demo)", `
+        <div class="list">
+          ${recipientItem("Mara", "CH12 3456 7890 1234 5678 9")}
+          ${recipientItem("Nico", "CH98 7654 3210 9876 5432 1")}
+          ${recipientItem("Vermieter", "CH55 0000 1111 2222 3333 4")}
+        </div>
+        <div class="btnRow">
+          <button class="btn" id="rcClose">Schliessen</button>
+          <button class="btn primary" id="rcSend">Senden</button>
+        </div>
+      `);
+      wireOnce("rcClose", closeSheet);
+      wireOnce("rcSend", ()=>{
+        closeSheet();
+        openSend();
+      });
+    }
+    function recipientItem(name, iban){
+      return `
+        <div class="tx" onclick="window.__rc('${escapeHtml(name)}','${escapeHtml(iban)}')">
+          <div class="ico" aria-hidden="true">${svgFor("transfer")}</div>
+          <div class="mid">
+            <div class="name">${escapeHtml(name)}</div>
+            <div class="meta">${escapeHtml(iban)}</div>
+          </div>
+          <div class="amt">
+            <div class="value">—</div>
+            <div class="tag">Wählen</div>
+          </div>
+        </div>
+      `;
+    }
+    window.__rc = async (name, iban)=>{
+      try{
+        await navigator.clipboard.writeText(`${name} • ${iban}`);
+        toast("Empfänger kopiert");
+      }catch{
+        toast("Kopieren nicht verfügbar");
+      }
+    };
+
+    function openFastPayment(){
+      showSheet("Schnellüberweisung (Demo)", `
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Sofort</div>
+            <div class="tsub">Gebühr CHF 1.50 (Demo)</div>
+          </div>
+          <div class="pillbtn" id="fastNow">Start</div>
+        </div>
+        <div class="toggleRow">
+          <div class="tleft">
+            <div class="ttitle">Standard</div>
+            <div class="tsub">Kostenlos • 1–2 Tage (Demo)</div>
+          </div>
+          <div class="pillbtn" id="fastStd">Start</div>
+        </div>
+        <div class="btnRow">
+          <button class="btn primary" id="fastClose">Schliessen</button>
+        </div>
+      `);
+      wireOnce("fastClose", closeSheet);
+      wireOnce("fastNow", ()=>{
+        closeSheet();
+        openSend();
+        toast("Sofort-Modus (Demo)");
+      });
+      wireOnce("fastStd", ()=>{
+        closeSheet();
+        openSend();
+        toast("Standard-Modus (Demo)");
+      });
+    }
+
+    // --- Buttons / UI Wiring ---
+    function bind(){
+      const click = (id, fn) => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        el.addEventListener("click", fn);
+        el.addEventListener("keydown", (e)=>{
+          if(e.key==="Enter" || e.key===" "){ e.preventDefault(); fn(); }
+        });
+      };
+
+      // Nav
+      click("navWallet", ()=> setActiveScreen("wallet"));
+      click("navAnalysen", ()=> setActiveScreen("analysen"));
+      click("navZahlungen", ()=> setActiveScreen("zahlungen"));
+      click("navProfil", ()=> setActiveScreen("profil"));
+
+      // Top
+      click("btnSearch", openSearchAndFilter);
+      click("btnNotif", ()=>{
+        toast(state.settings.notif ? "Benachrichtigungen aktiv" : "Benachrichtigungen aus");
+        haptic();
+      });
+      click("btnStatus", ()=> toast("Status: Online (Demo)"));
+
+      // Wallet actions
+      click("btnSend", openSend);
+      click("btnRequest", openRequest);
+      click("btnAddTx", ()=> openAddTx("expense"));
+      click("btnBudget", openBudgetEditor);
+      click("showAll", openSearchAndFilter);
+      click("btnApplePay", ()=> toast("Apple Pay: Aktiv (Demo)"));
+
+      // IBAN copy
+      document.getElementById("copyIban").addEventListener("click", async ()=>{
+        try{
+          await navigator.clipboard.writeText(state.user.iban);
+          toast("IBAN kopiert");
+          haptic();
+        }catch{
+          toast("Kopieren nicht verfügbar");
+        }
+      });
+
+      // Analytics
+      click("btnExport", openExport);
+      click("btnCat", openCategoryManager);
+      click("btnResetDemo", ()=>{
+        localStorage.removeItem(KEY);
+        state = structuredClone(DEFAULTS);
+        toast("Demo zurückgesetzt");
+        renderAll();
+      });
+
+      // Payments
+      click("btnScan", openQRScannerDemo);
+      click("btnTemplates", openTemplates);
+      click("btnRecipients", openRecipients);
+      click("btnFast", openFastPayment);
+      click("btnNewReq", openRequest);
+
+      // Profile
+      click("btnEditProfile", openProfileEditor);
+      click("btnSecurity", openSecurity);
+      click("btnAbout", openAbout);
+      click("btnCardMgmt", openCardManagement);
+      click("btnFreeze", ()=>{
+        state.card.frozen = !state.card.frozen;
+        toast(state.card.frozen ? "Karte gesperrt" : "Karte entsperrt");
+        haptic("heavy");
+        renderAll();
+      });
+      click("btnLimit", openCardManagement);
+
+      click("btnLock", ()=>{
+        locked=false;
+        lockIfNeeded();
+      });
+
+      // Settings toggles
+      document.getElementById("swTheme").addEventListener("click", ()=>{
+        state.settings.theme = (state.settings.theme==="dark") ? "light" : "dark";
+        toast(state.settings.theme==="dark" ? "Dark Mode" : "Light Mode");
+        haptic();
+        renderAll();
+      });
+
+      document.getElementById("swNotif").addEventListener("click", ()=>{
+        state.settings.notif = !state.settings.notif;
+        toast(state.settings.notif ? "Benachrichtigungen an" : "Benachrichtigungen aus");
+        haptic();
+        renderAll();
+      });
+
+      document.getElementById("swBio").addEventListener("click", ()=>{
+        state.settings.bio = !state.settings.bio;
+        toast(state.settings.bio ? "Face ID (Demo) an" : "Face ID (Demo) aus");
+        haptic();
+        renderAll();
+        if(state.settings.bio){
+          locked=false;
+          lockIfNeeded();
+        }
+      });
+
+      document.getElementById("swHaptic").addEventListener("click", ()=>{
+        state.settings.haptic = !state.settings.haptic;
+        toast(state.settings.haptic ? "Haptik an" : "Haptik aus");
+        renderAll();
+        haptic();
+      });
+    }
+
+    // --- Init ---
     bind();
+    renderAll();
+    // optional: lock at startup if enabled
+    if(state.settings.bio){ lockIfNeeded(); }
   </script>
 </body>
 </html>
