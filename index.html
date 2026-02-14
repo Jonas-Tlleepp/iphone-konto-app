@@ -2706,6 +2706,91 @@
     renderAll();
     // optional: lock at startup if enabled
     if(state.settings.bio){ lockIfNeeded(); }
+    
   </script>
+
+
+
+
+
+
+<script>
+async function hasWebAuthn() {
+  return !!(window.PublicKeyCredential);
+}
+
+function bufToB64url(buf){
+  const b = new Uint8Array(buf);
+  let s = "";
+  b.forEach(ch => s += String.fromCharCode(ch));
+  return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function b64urlToBuf(b64url){
+  const b64 = b64url.replace(/-/g,"+").replace(/_/g,"/") + "===".slice((b64url.length+3)%4);
+  const bin = atob(b64);
+  const buf = new ArrayBuffer(bin.length);
+  const bytes = new Uint8Array(buf);
+  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+  return buf;
+}
+function randChallenge(len=32){
+  const a = new Uint8Array(len);
+  crypto.getRandomValues(a);
+  return a;
+}
+
+const PASSKEY_KEY = "wallet_passkey_credId"; // demo-storage
+
+async function setupPasskey(displayName="Jonas Leppelt"){
+  if(!await hasWebAuthn()) throw new Error("WebAuthn nicht verfügbar");
+
+  const challenge = randChallenge();
+  const userId = randChallenge(16);
+
+  const publicKey = {
+    challenge,
+    rp: { name: "Wallet Demo" },
+    user: { id: userId, name: "jonas", displayName },
+    pubKeyCredParams: [{ type: "public-key", alg: -7 }], // ES256
+    authenticatorSelection: {
+      authenticatorAttachment: "platform",
+      userVerification: "required"
+    },
+    timeout: 60000,
+    attestation: "none"
+  };
+
+  const cred = await navigator.credentials.create({ publicKey });
+  const credId = bufToB64url(cred.rawId);
+  localStorage.setItem(PASSKEY_KEY, credId);
+  return credId;
+}
+
+async function unlockWithPasskey(){
+  const credIdB64 = localStorage.getItem(PASSKEY_KEY);
+  if(!credIdB64) throw new Error("Kein Passkey eingerichtet");
+
+  const publicKey = {
+    challenge: randChallenge(),
+    allowCredentials: [{ type: "public-key", id: b64urlToBuf(credIdB64) }],
+    userVerification: "required",
+    timeout: 60000
+  };
+
+  // iOS zeigt hier Face ID / Touch ID UI an
+  const assertion = await navigator.credentials.get({ publicKey });
+  return !!assertion;
+}
+</script>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
