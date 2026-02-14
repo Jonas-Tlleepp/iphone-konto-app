@@ -2714,74 +2714,580 @@
 
 
 
+
+
+
+
+<!-- CLEAN iOS PIN LOCK (offline) -->
+<style>
+  /* PIN Overlay */
+  .pin-overlay{
+    position:fixed; inset:0;
+    z-index:999999;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));
+    background:
+      radial-gradient(900px 520px at 30% -10%, rgba(76,166,255,.18) 0%, transparent 60%),
+      radial-gradient(700px 460px at 85% 10%, rgba(140,88,255,.20) 0%, transparent 60%),
+      linear-gradient(180deg, rgba(5,7,12,.96), rgba(11,15,23,.96));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display","SF Pro Text", "Helvetica Neue", Arial;
+    color: rgba(255,255,255,.92);
+  }
+
+  .pin-card{
+    width:min(420px, 100%);
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    box-shadow: 0 30px 90px rgba(0,0,0,.55);
+    overflow:hidden;
+  }
+
+  .pin-header{
+    padding: 18px 18px 10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+
+  .pin-brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+  }
+  .pin-logo{
+    width:40px;height:40px;border-radius:16px;
+    background: linear-gradient(135deg, rgba(76,166,255,.85), rgba(140,88,255,.85));
+    border: 1px solid rgba(255,255,255,.16);
+    box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    position:relative;
+  }
+  .pin-logo::after{
+    content:"";
+    position:absolute; inset:11px;
+    border-radius:12px;
+    background: rgba(0,0,0,.20);
+    border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .pin-brandtext{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    line-height:1.1;
+  }
+  .pin-title{
+    font-weight: 860;
+    letter-spacing: .1px;
+    font-size: 15px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .pin-sub{
+    margin-top:4px;
+    font-size: 12px;
+    color: rgba(255,255,255,.70);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .pin-smallbtn{
+    width:40px;height:40px;border-radius:16px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.18);
+    display:grid;place-items:center;
+    color: rgba(255,255,255,.88);
+    -webkit-tap-highlight-color: transparent;
+    user-select:none;
+  }
+  .pin-smallbtn:active{ transform: scale(.98); }
+
+  .pin-body{
+    padding: 8px 18px 16px;
+    display:flex;
+    flex-direction:column;
+    gap: 12px;
+    align-items:center;
+  }
+
+  .pin-h1{
+    margin: 4px 0 0;
+    font-size: 22px;
+    font-weight: 880;
+    letter-spacing: -.2px;
+    text-align:center;
+  }
+  .pin-h2{
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255,255,255,.68);
+    text-align:center;
+  }
+
+  .pin-dots{
+    margin-top: 6px;
+    display:flex;
+    gap: 10px;
+    align-items:center;
+    justify-content:center;
+    padding: 10px 0 6px;
+  }
+  .pin-dot{
+    width: 12px; height: 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.06);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.18);
+  }
+  .pin-dot.filled{
+    background: rgba(255,255,255,.88);
+    border-color: rgba(255,255,255,.40);
+    box-shadow: 0 10px 22px rgba(0,0,0,.25);
+  }
+
+  .pin-error{
+    height: 18px;
+    font-size: 12px;
+    color: rgba(255,90,122,.95);
+    text-align:center;
+  }
+
+  .pin-keypad{
+    width:100%;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .pin-key{
+    height: 56px;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.92);
+    font-weight: 860;
+    font-size: 18px;
+    letter-spacing: .2px;
+    display:grid;
+    place-items:center;
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pin-key:active{ transform: scale(.99); background: rgba(255,255,255,.09); }
+
+  .pin-key.secondary{
+    font-size: 14px;
+    font-weight: 820;
+    color: rgba(255,255,255,.75);
+    background: rgba(0,0,0,.16);
+  }
+
+  .pin-footer{
+    padding: 14px 18px 18px;
+    border-top: 1px solid rgba(255,255,255,.10);
+    display:flex;
+    justify-content:space-between;
+    gap: 10px;
+    align-items:center;
+  }
+  .pin-link{
+    font-size: 12px;
+    color: rgba(255,255,255,.72);
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pin-link:active{ opacity:.8; }
+
+  .pin-shake{
+    animation: pinshake .28s ease-in-out;
+  }
+  @keyframes pinshake{
+    0%{ transform: translateX(0); }
+    25%{ transform: translateX(-10px); }
+    50%{ transform: translateX(10px); }
+    75%{ transform: translateX(-8px); }
+    100%{ transform: translateX(0); }
+  }
+</style>
+
+<div class="pin-overlay" id="pinOverlay" aria-hidden="true">
+  <div class="pin-card" id="pinCard">
+    <div class="pin-header">
+      <div class="pin-brand">
+        <div class="pin-logo" aria-hidden="true"></div>
+        <div class="pin-brandtext">
+          <div class="pin-title">Wallet</div>
+          <div class="pin-sub" id="pinUserLine">Jonas Leppelt • Privatkonto</div>
+        </div>
+      </div>
+      <div class="pin-smallbtn" id="pinHelp" title="Hilfe">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M12 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M9.09 9a3 3 0 1 1 5.82 1c0 2-3 2-3 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="pin-body">
+      <div class="pin-h1" id="pinHeadline">PIN eingeben</div>
+      <div class="pin-h2" id="pinSubline">Zum Entsperren deiner Wallet</div>
+
+      <div class="pin-dots" id="pinDots"></div>
+      <div class="pin-error" id="pinError"></div>
+
+      <div class="pin-keypad" id="pinKeypad"></div>
+    </div>
+
+    <div class="pin-footer">
+      <div class="pin-link" id="pinForgot">PIN zurücksetzen</div>
+      <div class="pin-link" id="pinCancel">Sperren</div>
+    </div>
+  </div>
+</div>
+
 <script>
-async function hasWebAuthn() {
-  return !!(window.PublicKeyCredential);
-}
+  // ====== PIN SETTINGS ======
+  const PIN_LENGTH = 4;                 // <-- auf 6 ändern, wenn du willst
+  const PIN_KEY = "wallet_pin_hash_v1";
+  const PIN_SALT_KEY = "wallet_pin_salt_v1";
+  const AUTO_LOCK_MS = 60_000;          // 60 Sekunden
+  const MAX_FAILS = 5;                  // nach 5 Fehlversuchen kurz sperren
+  const COOLDOWN_MS = 30_000;           // 30 Sekunden
 
-function bufToB64url(buf){
-  const b = new Uint8Array(buf);
-  let s = "";
-  b.forEach(ch => s += String.fromCharCode(ch));
-  return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
-}
-function b64urlToBuf(b64url){
-  const b64 = b64url.replace(/-/g,"+").replace(/_/g,"/") + "===".slice((b64url.length+3)%4);
-  const bin = atob(b64);
-  const buf = new ArrayBuffer(bin.length);
-  const bytes = new Uint8Array(buf);
-  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
-  return buf;
-}
-function randChallenge(len=32){
-  const a = new Uint8Array(len);
-  crypto.getRandomValues(a);
-  return a;
-}
+  // ====== STATE ======
+  let pinBuffer = "";
+  let setupMode = false;
+  let setupFirst = "";
+  let failCount = 0;
+  let cooldownUntil = 0;
+  let autoLockTimer = null;
 
-const PASSKEY_KEY = "wallet_passkey_credId"; // demo-storage
+  const pinOverlayEl = document.getElementById("pinOverlay");
+  const card = document.getElementById("pinCard");
+  const dots = document.getElementById("pinDots");
+  const keypad = document.getElementById("pinKeypad");
+  const err = document.getElementById("pinError");
+  const headline = document.getElementById("pinHeadline");
+  const subline = document.getElementById("pinSubline");
 
-async function setupPasskey(displayName="Jonas Leppelt"){
-  if(!await hasWebAuthn()) throw new Error("WebAuthn nicht verfügbar");
+  // Pull name line from your app if available
+  try{
+    const uline = document.getElementById("userLine")?.textContent;
+    if(uline) document.getElementById("pinUserLine").textContent = uline;
+  }catch{}
 
-  const challenge = randChallenge();
-  const userId = randChallenge(16);
+  function vib(ms){
+    try{ if(navigator.vibrate) navigator.vibrate(ms); }catch{}
+  }
 
-  const publicKey = {
-    challenge,
-    rp: { name: "Wallet Demo" },
-    user: { id: userId, name: "jonas", displayName },
-    pubKeyCredParams: [{ type: "public-key", alg: -7 }], // ES256
-    authenticatorSelection: {
-      authenticatorAttachment: "platform",
-      userVerification: "required"
-    },
-    timeout: 60000,
-    attestation: "none"
-  };
+  function toBase64(arr){
+    let s=""; arr.forEach(b=>s+=String.fromCharCode(b));
+    return btoa(s);
+  }
+  function fromBase64(s){
+    const bin = atob(s);
+    const out = new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) out[i]=bin.charCodeAt(i);
+    return out;
+  }
 
-  const cred = await navigator.credentials.create({ publicKey });
-  const credId = bufToB64url(cred.rawId);
-  localStorage.setItem(PASSKEY_KEY, credId);
-  return credId;
-}
+  async function sha256(str){
+    const enc = new TextEncoder().encode(str);
+    const buf = await crypto.subtle.digest("SHA-256", enc);
+    return toBase64(new Uint8Array(buf));
+  }
 
-async function unlockWithPasskey(){
-  const credIdB64 = localStorage.getItem(PASSKEY_KEY);
-  if(!credIdB64) throw new Error("Kein Passkey eingerichtet");
+  function ensureSalt(){
+    let s = localStorage.getItem(PIN_SALT_KEY);
+    if(!s){
+      const r = new Uint8Array(16);
+      crypto.getRandomValues(r);
+      s = toBase64(r);
+      localStorage.setItem(PIN_SALT_KEY, s);
+    }
+    return s;
+  }
 
-  const publicKey = {
-    challenge: randChallenge(),
-    allowCredentials: [{ type: "public-key", id: b64urlToBuf(credIdB64) }],
-    userVerification: "required",
-    timeout: 60000
-  };
+  async function hashPin(pin){
+    // salted hash (offline ok)
+    const salt = ensureSalt();
+    return sha256(salt + "::" + pin);
+  }
 
-  // iOS zeigt hier Face ID / Touch ID UI an
-  const assertion = await navigator.credentials.get({ publicKey });
-  return !!assertion;
-}
+  function hasPin(){
+    return !!localStorage.getItem(PIN_KEY);
+  }
+
+  function setMode(){
+    if(!hasPin()){
+      setupMode = true;
+      headline.textContent = "PIN erstellen";
+      subline.textContent = `Wähle einen ${PIN_LENGTH}-stelligen PIN`;
+    }else{
+      setupMode = false;
+      headline.textContent = "PIN eingeben";
+      subline.textContent = "Zum Entsperren deiner Wallet";
+    }
+  }
+
+  function renderDots(){
+    dots.innerHTML = "";
+    for(let i=0;i<PIN_LENGTH;i++){
+      const d = document.createElement("div");
+      d.className = "pin-dot" + (i < pinBuffer.length ? " filled" : "");
+      dots.appendChild(d);
+    }
+  }
+
+  function setError(msg){
+    err.textContent = msg || "";
+  }
+
+  function shake(){
+    card.classList.remove("pin-shake");
+    void card.offsetWidth;
+    card.classList.add("pin-shake");
+  }
+
+  function openLock(){
+    pinOverlayEl.style.display = "flex";
+    pinOverlayEl.setAttribute("aria-hidden","false");
+    pinBuffer = "";
+    setupFirst = "";
+    renderDots();
+    setError("");
+    setMode();
+  }
+
+  function closeLock(){
+    pinOverlayEl.style.display = "none";
+    pinOverlayEl.setAttribute("aria-hidden","true");
+    pinBuffer = "";
+    renderDots();
+    setError("");
+    startAutoLock();
+  }
+
+  function startAutoLock(){
+    clearTimeout(autoLockTimer);
+    autoLockTimer = setTimeout(()=> openLock(), AUTO_LOCK_MS);
+  }
+
+  function touchActivity(){
+    if(pinOverlayEl.style.display !== "none") return; // locked -> ignore
+    startAutoLock();
+  }
+
+  document.addEventListener("click", touchActivity, { passive:true });
+  document.addEventListener("touchstart", touchActivity, { passive:true });
+
+  document.addEventListener("visibilitychange", ()=>{
+    // when user comes back, lock again (more "bank-like")
+    if(document.visibilityState === "visible"){
+      openLock();
+    }
+  });
+
+  // Keypad
+  function buildKeypad(){
+    keypad.innerHTML = "";
+
+    const keys = ["1","2","3","4","5","6","7","8","9","help","0","back"];
+    keys.forEach(k=>{
+      const b = document.createElement("div");
+      b.className = "pin-key" + ((k==="help"||k==="back") ? " secondary" : "");
+      b.setAttribute("role","button");
+      b.setAttribute("tabindex","0");
+
+      if(k==="help"){
+        b.textContent = "OK";
+      }else if(k==="back"){
+        b.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M20 12H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+      }else{
+        b.textContent = k;
+      }
+
+      const act = ()=> onKey(k);
+      b.addEventListener("click", act);
+      b.addEventListener("keydown", (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); act(); }});
+      keypad.appendChild(b);
+    });
+  }
+
+  function cooldownLeft(){
+    return Math.max(0, cooldownUntil - Date.now());
+  }
+
+  async function onKey(k){
+    if(cooldownLeft() > 0){
+      const sec = Math.ceil(cooldownLeft()/1000);
+      setError(`Zu viele Versuche. Warte ${sec}s`);
+      vib(20);
+      return;
+    }
+
+    if(k==="back"){
+      if(pinBuffer.length){
+        pinBuffer = pinBuffer.slice(0,-1);
+        renderDots();
+        vib(8);
+      }
+      return;
+    }
+
+    if(k==="help"){
+      // OK / confirm
+      if(pinBuffer.length !== PIN_LENGTH){
+        setError(`Bitte ${PIN_LENGTH} Ziffern eingeben`);
+        vib(12);
+        return;
+      }
+      await submitPin(pinBuffer);
+      return;
+    }
+
+    // digits
+    if(pinBuffer.length < PIN_LENGTH){
+      pinBuffer += k;
+      renderDots();
+      vib(8);
+
+      // auto-submit when full
+      if(pinBuffer.length === PIN_LENGTH){
+        await submitPin(pinBuffer);
+      }
+    }
+  }
+
+  async function submitPin(pin){
+    setError("");
+
+    if(setupMode){
+      if(!setupFirst){
+        setupFirst = pin;
+        pinBuffer = "";
+        renderDots();
+        headline.textContent = "PIN bestätigen";
+        subline.textContent = "Gib den PIN erneut ein";
+        vib(12);
+        return;
+      }
+
+      if(pin !== setupFirst){
+        pinBuffer = "";
+        setupFirst = "";
+        renderDots();
+        setError("PIN stimmt nicht überein");
+        shake();
+        vib(25);
+        headline.textContent = "PIN erstellen";
+        subline.textContent = `Wähle einen ${PIN_LENGTH}-stelligen PIN`;
+        return;
+      }
+
+      const hp = await hashPin(pin);
+      localStorage.setItem(PIN_KEY, hp);
+
+      pinBuffer = "";
+      setupFirst = "";
+      renderDots();
+      vib(20);
+      closeLock();
+      return;
+    }
+
+    // verify
+    const saved = localStorage.getItem(PIN_KEY);
+    const hp = await hashPin(pin);
+
+    if(hp === saved){
+      failCount = 0;
+      pinBuffer = "";
+      renderDots();
+      vib(20);
+      closeLock();
+    }else{
+      failCount += 1;
+      pinBuffer = "";
+      renderDots();
+      shake();
+      vib(25);
+
+      if(failCount >= MAX_FAILS){
+        cooldownUntil = Date.now() + COOLDOWN_MS;
+        setError(`Zu viele Versuche. Warte ${Math.ceil(COOLDOWN_MS/1000)}s`);
+      }else{
+        setError("Falscher PIN");
+      }
+    }
+  }
+
+  // Footer actions
+  document.getElementById("pinCancel").addEventListener("click", ()=>{
+    openLock(); // stays locked (no-op)
+    setError("Gesperrt");
+    vib(12);
+  });
+
+  document.getElementById("pinHelp").addEventListener("click", ()=>{
+    vib(10);
+    setError("Tipp: OK bestätigt • Pfeil löscht");
+  });
+
+  document.getElementById("pinForgot").addEventListener("click", ()=>{
+    // reset PIN locally (bank-like: require explicit action)
+    const sure = confirm("PIN wirklich zurücksetzen? (Nur lokal. Danach neuen PIN erstellen.)");
+    if(!sure) return;
+    localStorage.removeItem(PIN_KEY);
+    localStorage.removeItem(PIN_SALT_KEY);
+    failCount = 0;
+    cooldownUntil = 0;
+    setupMode = true;
+    setMode();
+    setError("PIN zurückgesetzt. Bitte neu erstellen.");
+    pinBuffer = "";
+    setupFirst = "";
+    renderDots();
+    vib(20);
+  });
+
+  // init
+  buildKeypad();
+  renderDots();
+  setMode();
+  // lock immediately on load
+  window.addEventListener("load", ()=> openLock());
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
